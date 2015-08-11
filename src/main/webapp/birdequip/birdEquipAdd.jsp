@@ -38,13 +38,14 @@
 				<input type="hidden" name="id"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TbirdEquip.ALIAS_ADDTIME%></th>	
-					<td>
-					<input class="span2" name="addtime" type="text" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_ADDTIME%>'})"  maxlength="0" class="" />
-					</td>							
+											
 					<th><%=TbirdEquip.ALIAS_NAME%></th>	
 					<td>
 											<input class="span2" name="name" type="text"/>
+					</td>	
+					<th><%=TbirdEquip.ALIAS_EQUIP_TYPE%></th>	
+					<td>
+											<jb:select dataType="ET" name="equipType"></jb:select>	
 					</td>							
 				</tr>	
 				<tr>	
@@ -52,37 +53,24 @@
 					<td>
 											<jb:select dataType="ST" name="status"></jb:select>	
 					</td>							
-					<th><%=TbirdEquip.ALIAS_EQUIP_TYPE%></th>	
-					<td>
-											<jb:select dataType="ET" name="equipType"></jb:select>	
-					</td>							
-				</tr>	
-				<tr>	
 					<th><%=TbirdEquip.ALIAS_GROUP%></th>	
 					<td>
 											<jb:select dataType="GP" name="group"></jb:select>	
-					</td>							
+					</td>						
+				</tr>	
+				<tr>	
+											
 					<th><%=TbirdEquip.ALIAS_LOCATION%></th>	
 					<td>
-											<input class="span2" name="location" type="text"/>
+						<input class="span2" name="location" type="text"/>
 					</td>							
 				</tr>	
 				<tr>	
 					<th><%=TbirdEquip.ALIAS_REMARK%></th>	
 					<td>
-											<input class="span2" name="remark" type="text"/>
-					</td>							
-					<th><%=TbirdEquip.ALIAS_CHANGETIME%></th>	
-					<td>
-					<input class="span2" name="changetime" type="text" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_CHANGETIME%>'})"  maxlength="0" class="" />
-					</td>							
-				</tr>	
-				<tr>	
-					<th><%=TbirdEquip.ALIAS_UPDATETIME%></th>	
-					<td>
-					<input class="span2" name="updatetime" type="text" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_UPDATETIME%>'})"  maxlength="0" class="" />
-					</td>							
-				</tr>	
+							<input class="span2" name="remark" type="text"/>
+					</td>																	
+				</tr>					
 			</table>		
 		</form>
 	</div>

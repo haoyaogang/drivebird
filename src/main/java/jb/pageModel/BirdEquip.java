@@ -72,6 +72,11 @@ public class BirdEquip implements java.io.Serializable {
 	public java.lang.String getGroupZh() {
 		return Application.getString(this.group);
 	}
+	
+	public java.lang.String getGroup() {
+		return group;
+	}
+
 	public void setLocation(java.lang.String location) {
 		this.location = location;
 	}

@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<jsp:include page="../../inc.jsp"></jsp:include>
+<jsp:include page="../inc.jsp"></jsp:include>
 </head>
 <body class="easyui-layout">
 
@@ -13,7 +13,7 @@
 				style="padding: 1px"></div>
 			<div title="登录" data-options="href:'api_login.jsp'"
 				style="padding: 1px"></div>
-			<div title="获取在线设备" data-options="href:'api_people_center.jsp'"
+			<div title="获取在线设备" data-options="href:'api_equip_list.jsp'"
 				style="padding: 1px"></div>
 			<div title="指令列表" data-options="href:'api_command_list.jsp'"
 				style="padding: 1px"></div>

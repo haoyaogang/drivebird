@@ -119,7 +119,7 @@ public class TbirdEquip implements java.io.Serializable,IEntity{
 		this.equipType = equipType;
 	}
 	
-	@Column(name = "group", unique = false, nullable = true, insertable = true, updatable = true, length = 4)
+	@Column(name = "group_type", unique = false, nullable = true, insertable = true, updatable = true, length = 4)
 	public java.lang.String getGroup() {
 		return this.group;
 	}

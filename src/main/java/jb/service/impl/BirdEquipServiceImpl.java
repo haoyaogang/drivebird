@@ -61,10 +61,7 @@ public class BirdEquipServiceImpl extends BaseServiceImpl<BirdEquip> implements 
 				whereHql += " and t.equipType = :equipType";
 				params.put("equipType", birdEquip.getEquipType());
 			}		
-			if (!F.empty(birdEquip.getGroup())) {
-				whereHql += " and t.group = :group";
-				params.put("group", birdEquip.getGroup());
-			}		
+				
 			if (!F.empty(birdEquip.getLocation())) {
 				whereHql += " and t.location = :location";
 				params.put("location", birdEquip.getLocation());

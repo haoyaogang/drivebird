@@ -46,8 +46,8 @@
 						<td><input name="name" type="text" class="span2" value="John"/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>password(密码)：</label></td>
-						<td><input name="password" type="text" class="span2" value="123456"/></td>
+						<td align="right" style="width: 180px;"><label>pwd(密码)：</label></td>
+						<td><input name="pwd" type="text" class="span2" value="123456"/></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">

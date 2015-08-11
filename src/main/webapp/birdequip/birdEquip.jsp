@@ -47,7 +47,7 @@
 				field : 'id',
 				title : '编号',
 				width : 150,
-				hidden : true
+				hidden : false
 				}, {
 				field : 'addtime',
 				title : '<%=TbirdEquip.ALIAS_ADDTIME%>',
@@ -57,15 +57,15 @@
 				title : '<%=TbirdEquip.ALIAS_NAME%>',
 				width : 50		
 				}, {
-				field : 'status',
+				field : 'statusZh',
 				title : '<%=TbirdEquip.ALIAS_STATUS%>',
 				width : 50		
 				}, {
-				field : 'equipType',
+				field : 'equipTypeZh',
 				title : '<%=TbirdEquip.ALIAS_EQUIP_TYPE%>',
 				width : 50		
 				}, {
-				field : 'group',
+				field : 'groupZh',
 				title : '<%=TbirdEquip.ALIAS_GROUP%>',
 				width : 50		
 				}, {
@@ -216,15 +216,10 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit : true,border : false">
-		<div data-options="region:'north',title:'查询条件',border:false" style="height: 160px; overflow: hidden;">
+		<div data-options="region:'north',title:'查询条件',border:false" style="height: 70px; overflow: hidden;">
 			<form id="searchForm">
 				<table class="table table-hover table-condensed" style="display: none;">
-						<tr>	
-							<th><%=TbirdEquip.ALIAS_ADDTIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_ADDTIME%>'})" id="addtimeBegin" name="addtimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_ADDTIME%>'})" id="addtimeEnd" name="addtimeEnd"/>
-							</td>
+						<tr>								
 							<th><%=TbirdEquip.ALIAS_NAME%></th>	
 							<td>
 											<input type="text" name="name" maxlength="72" class="span2"/>
@@ -232,38 +227,16 @@
 							<th><%=TbirdEquip.ALIAS_STATUS%></th>	
 							<td>
 											<jb:select dataType="ST" name="status"></jb:select>	
+							</td>							
+							<th><%=TbirdEquip.ALIAS_GROUP%></th>	
+							<td>
+											<jb:select dataType="GP" name="group"></jb:select>	
 							</td>
 							<th><%=TbirdEquip.ALIAS_EQUIP_TYPE%></th>	
 							<td>
 											<jb:select dataType="ET" name="equipType"></jb:select>	
 							</td>
-						</tr>	
-						<tr>	
-							<th><%=TbirdEquip.ALIAS_GROUP%></th>	
-							<td>
-											<jb:select dataType="GP" name="group"></jb:select>	
-							</td>
-							<th><%=TbirdEquip.ALIAS_LOCATION%></th>	
-							<td>
-											<input type="text" name="location" maxlength="72" class="span2"/>
-							</td>
-							<th><%=TbirdEquip.ALIAS_REMARK%></th>	
-							<td>
-											<input type="text" name="remark" maxlength="256" class="span2"/>
-							</td>
-							<th><%=TbirdEquip.ALIAS_CHANGETIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_CHANGETIME%>'})" id="changetimeBegin" name="changetimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_CHANGETIME%>'})" id="changetimeEnd" name="changetimeEnd"/>
-							</td>
-						</tr>	
-						<tr>	
-							<th><%=TbirdEquip.ALIAS_UPDATETIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_UPDATETIME%>'})" id="updatetimeBegin" name="updatetimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_UPDATETIME%>'})" id="updatetimeEnd" name="updatetimeEnd"/>
-							</td>
-						</tr>	
+						</tr>							
 				</table>
 			</form>
 		</div>
