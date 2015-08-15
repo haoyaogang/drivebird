@@ -28,6 +28,21 @@ public interface BirdEquipServiceI {
 	 * @param birdEquip
 	 */
 	public void add(BirdEquip birdEquip);
+	
+	
+	/**
+	 * 退出
+	 * @param birdEquip
+	 * @return
+	 */
+	public boolean logout(BirdEquip birdEquip);
+	
+	/**
+	 * 登录
+	 * @param birdEquip
+	 * @return
+	 */
+	public boolean login(BirdEquip birdEquip);
 
 	/**
 	 * 获得BirdEquip对象

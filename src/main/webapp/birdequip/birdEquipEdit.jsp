@@ -37,17 +37,28 @@
 		<form id="form" method="post">
 				<input type="hidden" name="id" value = "${birdEquip.id}"/>
 			<table class="table table-hover table-condensed">
-				<tr>	
-					<th><%=TbirdEquip.ALIAS_ADDTIME%></th>	
-					<td>
-					<input class="span2" name="addtime" type="text" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_ADDTIME%>'})"   maxlength="0" value="${birdEquip.addtime}"/>
-					</td>							
+				<tr>												
 					<th><%=TbirdEquip.ALIAS_NAME%></th>	
 					<td>
 											<input class="span2" name="name" type="text" value="${birdEquip.name}"/>
+					</td>	
+					<th><%=TbirdEquip.ALIAS_GROUP_TYPE%></th>	
+					<td>
+											<jb:select dataType="GP" name="groupType" value="${birdEquip.groupType}"></jb:select>	
 					</td>							
 			</tr>	
+				
 				<tr>	
+					<th><%=TbirdEquip.ALIAS_PWD%></th>	
+					<td>
+											<input class="span2" name="pwd" type="text" value="${birdEquip.pwd}"/>
+					</td>							
+					<th><%=TbirdEquip.ALIAS_DTUTYPE%></th>	
+					<td>
+											<input class="span2" name="dtutype" type="text" value="${birdEquip.dtutype}"/>
+					</td>							
+			</tr>	
+			<tr>	
 					<th><%=TbirdEquip.ALIAS_STATUS%></th>	
 					<td>
 											<jb:select dataType="ST" name="status" value="${birdEquip.status}"></jb:select>	
@@ -58,31 +69,20 @@
 					</td>							
 			</tr>	
 				<tr>	
-					<th><%=TbirdEquip.ALIAS_GROUP%></th>	
-					<td>
-											<jb:select dataType="GP" name="group" value="${birdEquip.group}"></jb:select>	
-					</td>							
+											
 					<th><%=TbirdEquip.ALIAS_LOCATION%></th>	
-					<td>
-											<input class="span2" name="location" type="text" value="${birdEquip.location}"/>
+					<td colspan="3">
+											<input class="span2" name="location" type="text" style="width:80%" value="${birdEquip.location}"/>
 					</td>							
 			</tr>	
 				<tr>	
 					<th><%=TbirdEquip.ALIAS_REMARK%></th>	
-					<td>
-											<input class="span2" name="remark" type="text" value="${birdEquip.remark}"/>
+					<td colspan="3">
+						<textarea class="span2" name="remark" style="width:80%">${birdEquip.remark}</textarea>
 					</td>							
-					<th><%=TbirdEquip.ALIAS_CHANGETIME%></th>	
-					<td>
-					<input class="span2" name="changetime" type="text" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_CHANGETIME%>'})"   maxlength="0" value="${birdEquip.changetime}"/>
-					</td>							
+											
 			</tr>	
-				<tr>	
-					<th><%=TbirdEquip.ALIAS_UPDATETIME%></th>	
-					<td>
-					<input class="span2" name="updatetime" type="text" onclick="WdatePicker({dateFmt:'<%=TbirdEquip.FORMAT_UPDATETIME%>'})"   maxlength="0" value="${birdEquip.updatetime}"/>
-					</td>							
-			</tr>	
+				
 			</table>				
 		</form>
 	</div>

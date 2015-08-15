@@ -25,7 +25,8 @@ public class TbirdCommand implements java.io.Serializable,IEntity{
 	public static final String TABLE_ALIAS = "BirdCommand";
 	public static final String ALIAS_ID = "id";
 	public static final String ALIAS_ADDTIME = "addtime";
-	public static final String ALIAS_COMMAND = "指令名称";
+	public static final String ALIAS_COMMAND = "指令";
+	public static final String ALIAS_NAME = "名称";
 	public static final String ALIAS_EQUIP_TYPE = "设备分类";
 	public static final String ALIAS_REMARK = "备注";
 	
@@ -41,8 +42,12 @@ public class TbirdCommand implements java.io.Serializable,IEntity{
 	private java.util.Date addtime;
 	//@Length(max=36)
 	private java.lang.String command;
+	
+	private java.lang.String name;
 	//@Length(max=36)
 	private java.lang.String equipType;
+	
+
 	//@Length(max=256)
 	private java.lang.String remark;
 	//columns END
@@ -65,7 +70,13 @@ public class TbirdCommand implements java.io.Serializable,IEntity{
 		return this.id;
 	}
 	
-
+	@Column(name = "name", unique = false, nullable = true, insertable = true, updatable = true, length = 36)
+	public java.lang.String getName() {
+		return name;
+	}
+	public void setName(java.lang.String name) {
+		this.name = name;
+	}
 	@Column(name = "addtime", unique = false, nullable = true, insertable = true, updatable = true, length = 19)
 	public java.util.Date getAddtime() {
 		return this.addtime;

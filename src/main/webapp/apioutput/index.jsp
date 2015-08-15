@@ -17,6 +17,9 @@
 				style="padding: 1px"></div>
 			<div title="指令列表" data-options="href:'api_command_list.jsp'"
 				style="padding: 1px"></div>
+			<div title="发送指令" data-options="href:'api_send_command.jsp'"
+				style="padding: 1px"></div>	
+				
 			
 		</div>
 	</div>

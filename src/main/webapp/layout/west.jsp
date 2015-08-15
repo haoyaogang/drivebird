@@ -99,11 +99,5 @@
 			<ul id="layout_west_tree"></ul>
 		</div>
 	</div>
-	<div title="其他示例" data-options="border:false,iconCls:'anchor'">
-		<ul>
-			<li>菜单</li>
-			<li>菜单</li>
-			<li>菜单</li>
-		</ul>
-	</div>
+	
 </div>

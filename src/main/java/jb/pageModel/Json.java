@@ -12,7 +12,7 @@ package jb.pageModel;
 @SuppressWarnings("serial")
 public class Json implements java.io.Serializable {
 
-	private boolean success = false;
+	private boolean success = true;
 
 	private String msg = "";
 

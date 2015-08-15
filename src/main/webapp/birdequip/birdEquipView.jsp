@@ -10,29 +10,32 @@
 	<div data-options="region:'center',border:false">
 		<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TbirdEquip.ALIAS_ADDTIME%></th>	
-					<td>
-						${birdEquip.addtime}							
-					</td>							
+											
 					<th><%=TbirdEquip.ALIAS_NAME%></th>	
 					<td>
 						${birdEquip.name}							
+					</td>	
+					<th><%=TbirdEquip.ALIAS_GROUP_TYPE%></th>	
+					<td>
+						${birdEquip.groupTypeZh}							
 					</td>							
 				</tr>		
 				<tr>	
+					<th><%=TbirdEquip.ALIAS_DTUTYPE%></th>	
+					<td>
+						${birdEquip.dtutype}							
+					</td>	
 					<th><%=TbirdEquip.ALIAS_STATUS%></th>	
 					<td>
-						${birdEquip.status}							
+						${birdEquip.statusZh}							
 					</td>							
-					<th><%=TbirdEquip.ALIAS_EQUIP_TYPE%></th>	
-					<td>
-						${birdEquip.equipType}							
-					</td>							
+											
 				</tr>		
+					
 				<tr>	
-					<th><%=TbirdEquip.ALIAS_GROUP%></th>	
+					<th><%=TbirdEquip.ALIAS_PWD%></th>	
 					<td>
-						${birdEquip.group}							
+						${birdEquip.pwd}							
 					</td>							
 					<th><%=TbirdEquip.ALIAS_LOCATION%></th>	
 					<td>
@@ -41,15 +44,26 @@
 				</tr>		
 				<tr>	
 					<th><%=TbirdEquip.ALIAS_REMARK%></th>	
-					<td>
+					<td colspan="3">
 						${birdEquip.remark}							
+					</td>							
+												
+				</tr>	
+				<tr>	
+					<th><%=TbirdEquip.ALIAS_EQUIP_TYPE%></th>	
+					<td>
+						${birdEquip.equipTypeZh}							
 					</td>							
 					<th><%=TbirdEquip.ALIAS_CHANGETIME%></th>	
 					<td>
 						${birdEquip.changetime}							
-					</td>							
+					</td>						
 				</tr>		
 				<tr>	
+					<th><%=TbirdEquip.ALIAS_ADDTIME%></th>	
+					<td>
+						${birdEquip.addtime}							
+					</td>	
 					<th><%=TbirdEquip.ALIAS_UPDATETIME%></th>	
 					<td>
 						${birdEquip.updatetime}							

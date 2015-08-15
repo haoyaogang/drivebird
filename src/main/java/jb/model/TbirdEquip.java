@@ -1,7 +1,7 @@
 ﻿
 /*
  * @author John
- * @date - 2015-08-11
+ * @date - 2015-08-14
  */
 
 package jb.model;
@@ -28,7 +28,9 @@ public class TbirdEquip implements java.io.Serializable,IEntity{
 	public static final String ALIAS_NAME = "设备名称";
 	public static final String ALIAS_STATUS = "状态";
 	public static final String ALIAS_EQUIP_TYPE = "设备分类";
-	public static final String ALIAS_GROUP = "组";
+	public static final String ALIAS_GROUP_TYPE = "组";
+	public static final String ALIAS_DTUTYPE = "设备型号";
+	public static final String ALIAS_PWD = "密码";
 	public static final String ALIAS_LOCATION = "位置";
 	public static final String ALIAS_REMARK = "备注";
 	public static final String ALIAS_CHANGETIME = "状态变更时间";
@@ -53,7 +55,11 @@ public class TbirdEquip implements java.io.Serializable,IEntity{
 	//@Length(max=4)
 	private java.lang.String equipType;
 	//@Length(max=4)
-	private java.lang.String group;
+	private java.lang.String groupType;
+	//@Length(max=32)
+	private java.lang.String dtutype;
+	//@Length(max=32)
+	private java.lang.String pwd;
 	//@Length(max=72)
 	private java.lang.String location;
 	//@Length(max=256)
@@ -120,12 +126,30 @@ public class TbirdEquip implements java.io.Serializable,IEntity{
 	}
 	
 	@Column(name = "group_type", unique = false, nullable = true, insertable = true, updatable = true, length = 4)
-	public java.lang.String getGroup() {
-		return this.group;
+	public java.lang.String getGroupType() {
+		return this.groupType;
 	}
 	
-	public void setGroup(java.lang.String group) {
-		this.group = group;
+	public void setGroupType(java.lang.String groupType) {
+		this.groupType = groupType;
+	}
+	
+	@Column(name = "dtutype", unique = false, nullable = true, insertable = true, updatable = true, length = 32)
+	public java.lang.String getDtutype() {
+		return this.dtutype;
+	}
+	
+	public void setDtutype(java.lang.String dtutype) {
+		this.dtutype = dtutype;
+	}
+	
+	@Column(name = "pwd", unique = false, nullable = true, insertable = true, updatable = true, length = 32)
+	public java.lang.String getPwd() {
+		return this.pwd;
+	}
+	
+	public void setPwd(java.lang.String pwd) {
+		this.pwd = pwd;
 	}
 	
 	@Column(name = "location", unique = false, nullable = true, insertable = true, updatable = true, length = 72)
@@ -175,7 +199,9 @@ public class TbirdEquip implements java.io.Serializable,IEntity{
 			.append("Name",getName())
 			.append("Status",getStatus())
 			.append("EquipType",getEquipType())
-			.append("Group",getGroup())
+			.append("GroupType",getGroupType())
+			.append("Dtutype",getDtutype())
+			.append("Pwd",getPwd())
 			.append("Location",getLocation())
 			.append("Remark",getRemark())
 			.append("Changetime",getChangetime())

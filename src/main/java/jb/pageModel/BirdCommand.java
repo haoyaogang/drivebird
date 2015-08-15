@@ -8,7 +8,8 @@ public class BirdCommand implements java.io.Serializable {
 	private static final long serialVersionUID = 5454155825314635342L;
 
 	private java.lang.String id;	
-	private Date addtime;			
+	private Date addtime;	
+	private java.lang.String name;	
 	private java.lang.String command;	
 	private java.lang.String equipType;	
 	private java.lang.String remark;	
@@ -52,5 +53,14 @@ public class BirdCommand implements java.io.Serializable {
 	public java.lang.String getRemark() {
 		return this.remark;
 	}
+
+	public java.lang.String getName() {
+		return name;
+	}
+
+	public void setName(java.lang.String name) {
+		this.name = name;
+	}
+	
 
 }

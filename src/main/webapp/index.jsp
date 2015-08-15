@@ -122,11 +122,11 @@
 		<div data-options="region:'center'"
 			title="<%=Application.getString("SV003")%>" style="overflow: hidden;">
 			<div id="index_tabs" style="overflow: hidden;">
-				<div title="首页" data-options="border:false"
+				<%-- <div title="首页" data-options="border:false"
 					style="overflow: hidden;">
 					<iframe src="${pageContext.request.contextPath}/portal/index.jsp"
 						frameborder="0" style="border: 0; width: 100%; height: 98%;"></iframe>
-				</div>
+				</div> --%>
 			</div>
 		</div>
 		<%-- 		

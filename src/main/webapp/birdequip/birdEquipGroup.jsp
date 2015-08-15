@@ -7,7 +7,7 @@
 	$(function() {
 	 parent.$.messager.progress('close');
 		$('#form').form({
-			url : '${pageContext.request.contextPath}/birdCommandController/add',
+			url : '${pageContext.request.contextPath}/birdEquipController/group',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -35,33 +35,16 @@
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: hidden;">	
 		<form id="form" method="post">		
-				<input type="hidden" name="id"/>
+			<input type="hidden" name="id" value = "${id}"/>		
 			<table class="table table-hover table-condensed">
 				<tr>	
 											
-					<th><%=TbirdCommand.ALIAS_COMMAND%></th>	
+					<th>组</th>	
 					<td>
-											<input class="span2" name="command" type="text"/>
-					</td>	
-					<th><%=TbirdCommand.ALIAS_NAME%></th>	
-					<td>
-											<input class="span2" name="name" type="text"/>
+							<jb:select dataType="GP" name="groupType"></jb:select>	
 					</td>							
 				</tr>	
-				<tr>	
-					<th><%=TbirdCommand.ALIAS_EQUIP_TYPE%></th>	
-					<td colspan="3">
-											<jb:select dataType="ET" name="equipType"></jb:select>	
-					</td>							
-									
-				</tr>	
-				<tr>	
-											
-					<th><%=TbirdCommand.ALIAS_REMARK%></th>	
-					<td  colspan="3">
-									<textarea class="span2" name="remark" style="width:80%"/>
-					</td>							
-				</tr>	
+				
 			</table>		
 		</form>
 	</div>

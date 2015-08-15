@@ -60,5 +60,30 @@
 		<property name="filterChainBuilder" ref="filterChainBuilder" />
 		<property name="reuseAddress" value="true" />
 	</bean>
-
+	<bean id="deviceIoHandler" class="jb.net.mina.handler.DeviceIoHandler" />
+	<bean id="equipIoAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor"
+		init-method="bind" destroy-method="unbind">
+		<property name="defaultLocalAddress" value=":6222" />
+		<property name="handler" ref="deviceIoHandler" />
+		<property name="filterChainBuilder" ref="equipFilterChainBuilder" />
+		<property name="reuseAddress" value="true" />
+	</bean>
+	
+	<bean id="equipFilterChainBuilder"
+		class="org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder">
+		<property name="filters">
+			<map>
+				<entry key="executor">
+					<bean class="org.apache.mina.filter.executor.ExecutorFilter" />
+				</entry>
+				<entry key="codec">
+					<bean class="org.apache.mina.filter.codec.ProtocolCodecFilter">
+						<constructor-arg>
+							<bean class="jb.net.mina.codec.TextCodecFactory" />
+						</constructor-arg>
+					</bean>
+				</entry>				
+			</map>
+		</property>
+	</bean>
 </beans>

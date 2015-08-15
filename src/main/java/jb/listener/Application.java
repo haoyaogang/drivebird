@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 
 import jb.pageModel.BaseData;
 import jb.service.BasedataServiceI;
+import jb.service.BirdEquipServiceI;
 
 import org.androidpn.server.util.ConfigManager;
 import org.androidpn.server.xmpp.XmppServer;
@@ -75,10 +76,18 @@ public class Application implements ServletContextListener {
 		BasedataServiceI service = app.getBean(BasedataServiceI.class);
 		return service;
 	}
+	
+	
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		
 
+	}
+
+	public static BirdEquipServiceI getBirdEquipService() {
+		ApplicationContext app = WebApplicationContextUtils.getWebApplicationContext(context); 
+		BirdEquipServiceI service = app.getBean(BirdEquipServiceI.class);
+		return service;
 	}
 
 }

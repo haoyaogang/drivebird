@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jb.net.mina.core.DeviceStanzaHandler;
 import jb.pageModel.Colum;
 import jb.pageModel.BirdEquip;
 import jb.pageModel.DataGrid;
@@ -90,6 +91,68 @@ public class BirdEquipController extends BaseController {
 		return "/birdequip/birdEquipAdd";
 	}
 
+	
+	/**
+	 * 跳到发送指令页面
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/messagePage")
+	public String messagePage(HttpServletRequest request,String id) {
+		request.setAttribute("id", id);
+		return "/birdequip/birdEquipSendMessage";
+	}
+	
+	/**
+	 * 发送指令
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/sendMessage")
+	@ResponseBody
+	public Json sendMessage(HttpServletRequest request,String id,String command) {
+		Json j = new Json();	
+		String[] ids = id.split(",");
+		for(String username : ids){
+			DeviceStanzaHandler.sendMessage(username, command);
+		}
+		
+		return j;
+	}
+	/**
+	 * 跳到分组页面
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/groupPage")
+	public String groupPage(HttpServletRequest request,String id) {
+		request.setAttribute("id", id);
+		return "/birdequip/birdEquipGroup";
+	}
+	
+	/**
+	 * 分组
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/group")
+	@ResponseBody
+	public Json group(HttpServletRequest request,String id,String groupType) {
+		Json j = new Json();	
+		String[] ids = id.split(",");
+		for(String username : ids){
+			BirdEquip birdEquip = new BirdEquip();
+			birdEquip.setId(username);
+			birdEquip.setGroupType(groupType);
+			birdEquipService.edit(birdEquip);
+		}
+		
+		return j;
+	}
 	/**
 	 * 添加BirdEquip
 	 * 

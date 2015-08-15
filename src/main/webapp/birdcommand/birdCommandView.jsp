@@ -24,10 +24,13 @@
 					<td>
 						${birdCommand.equipType}							
 					</td>							
-					<th><%=TbirdCommand.ALIAS_REMARK%></th>	
-					<td>
+											
+				</tr>	
+				<tr>	
+				<th><%=TbirdCommand.ALIAS_REMARK%></th>	
+					<td colspan="3">
 						${birdCommand.remark}							
-					</td>							
+					</td>	
 				</tr>		
 		</table>
 	</div>

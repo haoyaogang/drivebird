@@ -24,16 +24,16 @@
 			} ]
 		});
 
-		userLoginCombobox = $('#userLoginCombobox').combobox({
+		/* userLoginCombobox = $('#userLoginCombobox').combobox({
 			url : '${pageContext.request.contextPath}/userController/loginCombobox',
 			valueField : 'name',
 			textField : 'name',
 			required : true,
 			panelHeight : 'auto',
 			delay : 500
-		});
+		}); */
 
-		userLoginCombogrid = $('#userLoginCombogrid').combogrid({
+		/* userLoginCombogrid = $('#userLoginCombogrid').combogrid({
 			url : '${pageContext.request.contextPath}/userController/loginCombogrid',
 			panelWidth : 450,
 			panelHeight : 200,
@@ -62,17 +62,17 @@
 				title : '最后修改时间',
 				width : 150
 			} ] ]
-		});
+		}); */
 
-		defaultUserInfoDialog = $('#defaultUserInfoDialog').show().dialog({
+		/* defaultUserInfoDialog = $('#defaultUserInfoDialog').show().dialog({
 			top : 0,
 			left : 200
-		});
+		}); */
 
 		var sessionInfo_userId = '${sessionInfo.id}';
 		if (sessionInfo_userId) {/*目的是，如果已经登陆过了，那么刷新页面后也不需要弹出登录窗体*/
 			loginDialog.dialog('close');
-			defaultUserInfoDialog.dialog('close');
+			//defaultUserInfoDialog.dialog('close');
 		}
 
 		$('#loginDialog input').keyup(function(event) {
@@ -80,7 +80,7 @@
 				loginFun();
 			}
 		});
-		userLoginCombobox.combobox('textbox').keyup(function(event) {
+		/* userLoginCombobox.combobox('textbox').keyup(function(event) {
 			if (event.keyCode == '13') {
 				loginFun();
 			}
@@ -89,7 +89,7 @@
 			if (event.keyCode == '13') {
 				loginFun();
 			}
-		});
+		}); */
 	});
 	function loginFun() {
 		if (layout_west_tree) {//当west功能菜单树加载成功后再执行登录
@@ -148,7 +148,7 @@
 				</table>
 			</form>
 		</div>
-		<div title="自动补全模式" style="overflow: hidden; padding: 10px;">
+		<!-- <div title="自动补全模式" style="overflow: hidden; padding: 10px;">
 			<form method="post">
 				<table class="table table-hover table-condensed">
 					<tr>
@@ -183,11 +183,11 @@
 					</tr>
 				</table>
 			</form>
-		</div>
+		</div> -->
 	</div>
 </div>
 
-<div id="defaultUserInfoDialog" title="系统测试账号"
+<!-- <div id="defaultUserInfoDialog" title="系统测试账号"
 	style="width: 300px; height: 260px; overflow: hidden; display: none;">
 	<div class="well well-small" style="margin: 3px;">请大家不要随意更改系统默认账户的信息，如果想测试，请自己新建立用户进行测试</div>
 	<div class="well well-small" style="margin: 3px;">
@@ -213,4 +213,4 @@
 			<span class="badge">7</span>来宾用户：guest/123456
 		</div>
 	</div>
-</div>
+</div> -->

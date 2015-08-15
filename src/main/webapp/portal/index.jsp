@@ -19,8 +19,8 @@
 				height : 1
 			});
 		});
-
-		panels = [ {
+		panels = [];
+		/* panels = [ {
 			id : 'p1',
 			title : '关于',
 			height : 200,
@@ -56,7 +56,7 @@
 			height : 200,
 			collapsible : true,
 			href : '${pageContext.request.contextPath}/baseController/portal/qun'
-		} ];
+		} ]; */
 
 		portal = $('#portal').portal({
 			border : false,

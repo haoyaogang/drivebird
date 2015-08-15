@@ -43,63 +43,56 @@
 			striped : true,
 			rownumbers : true,
 			singleSelect : true,
+			checkbox : false,
 			columns : [ [ {
 				field : 'id',
 				title : '编号',
-				width : 150,
-				hidden : false
-				}, {
-				field : 'addtime',
-				title : '<%=TbirdEquip.ALIAS_ADDTIME%>',
-				width : 50		
+				width : 100,
+				checkbox : true
 				}, {
 				field : 'name',
 				title : '<%=TbirdEquip.ALIAS_NAME%>',
-				width : 50		
+				width : 100		
 				}, {
 				field : 'statusZh',
 				title : '<%=TbirdEquip.ALIAS_STATUS%>',
+				width : 50		
+				}, {
+				field : 'groupTypeZh',
+				title : '<%=TbirdEquip.ALIAS_GROUP_TYPE%>',
+				width : 50		
+				}, {
+				field : 'dtutype',
+				title : '<%=TbirdEquip.ALIAS_DTUTYPE%>',
+				width : 50		
+				}, {
+				field : 'pwd',
+				title : '<%=TbirdEquip.ALIAS_PWD%>',
 				width : 50		
 				}, {
 				field : 'equipTypeZh',
 				title : '<%=TbirdEquip.ALIAS_EQUIP_TYPE%>',
 				width : 50		
 				}, {
-				field : 'groupZh',
-				title : '<%=TbirdEquip.ALIAS_GROUP%>',
-				width : 50		
-				}, {
-				field : 'location',
-				title : '<%=TbirdEquip.ALIAS_LOCATION%>',
-				width : 50		
-				}, {
-				field : 'remark',
-				title : '<%=TbirdEquip.ALIAS_REMARK%>',
-				width : 50		
-				}, {
 				field : 'changetime',
 				title : '<%=TbirdEquip.ALIAS_CHANGETIME%>',
 				width : 50		
 				}, {
-				field : 'updatetime',
-				title : '<%=TbirdEquip.ALIAS_UPDATETIME%>',
-				width : 50		
-			}, {
 				field : 'action',
 				title : '操作',
 				width : 100,
 				formatter : function(value, row, index) {
 					var str = '';
 					if ($.canEdit) {
-						str += $.formatString('<img onclick="editFun(\'{0}\');" src="{1}" title="编辑"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/bug/bug_edit.png');
+						str += $.formatString('<img onclick="editFun(\'{0}\');" src="{1}" title="编辑"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/pencil.png');
 					}
 					str += '&nbsp;';
 					if ($.canDelete) {
-						str += $.formatString('<img onclick="deleteFun(\'{0}\');" src="{1}" title="删除"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/bug/bug_delete.png');
+						str += $.formatString('<img onclick="deleteFun(\'{0}\');" src="{1}" title="删除"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/cancel.png');
 					}
 					str += '&nbsp;';
 					if ($.canView) {
-						str += $.formatString('<img onclick="viewFun(\'{0}\');" src="{1}" title="查看"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/bug/bug_link.png');
+						str += $.formatString('<img onclick="viewFun(\'{0}\');" src="{1}" title="查看"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/link.png');
 					}
 					return str;
 				}
@@ -146,10 +139,79 @@
 		parent.$.modalDialog({
 			title : '编辑数据',
 			width : 780,
-			height : 500,
+			height : 320,
 			href : '${pageContext.request.contextPath}/birdEquipController/editPage?id=' + id,
 			buttons : [ {
 				text : '编辑',
+				handler : function() {
+					parent.$.modalDialog.openner_dataGrid = dataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
+					var f = parent.$.modalDialog.handler.find('#form');
+					f.submit();
+				}
+			} ]
+		});
+	}
+	
+	function openSendMessage(id) {
+		var ids = new Array();
+		if (id == undefined) {
+			var rows = dataGrid.datagrid('getChecked');
+			//id = rows[0].id;
+			for(var i = 0 ;i<rows.length;i++){
+				ids.push(rows[0].id);
+			}
+		}else{
+			ids.push(id);
+		}
+		if(ids.length == 0){
+			parent.$.messager.show({
+				title : '提示',
+				msg : '请勾选要发送指令的记录！'
+			});
+			return;
+		}
+		
+		parent.$.modalDialog({
+			title : '发送指令',
+			width : 780,
+			height : 320,
+			href : '${pageContext.request.contextPath}/birdEquipController/messagePage?id=' + ids.join(","),
+			buttons : [ {
+				text : '发送',
+				handler : function() {
+					parent.$.modalDialog.openner_dataGrid = dataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
+					var f = parent.$.modalDialog.handler.find('#form');
+					f.submit();
+				}
+			} ]
+		});
+	}
+	
+	function groupEquip(id) {
+		var ids = new Array();
+		if (id == undefined) {
+			var rows = dataGrid.datagrid('getChecked');
+			//id = rows[0].id;
+			for(var i = 0 ;i<rows.length;i++){
+				ids.push(rows[0].id);
+			}
+		}else{
+			ids.push(id);
+		}
+		if(ids.length == 0){
+			parent.$.messager.show({
+				title : '提示',
+				msg : '请勾选要分组的记录！'
+			});
+			return;
+		}
+		parent.$.modalDialog({
+			title : '分组',
+			width : 780,
+			height : 320,
+			href : '${pageContext.request.contextPath}/birdEquipController/groupPage?id=' + ids.join(","),
+			buttons : [ {
+				text : '分组',
 				handler : function() {
 					parent.$.modalDialog.openner_dataGrid = dataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
 					var f = parent.$.modalDialog.handler.find('#form');
@@ -167,7 +229,7 @@
 		parent.$.modalDialog({
 			title : '查看数据',
 			width : 780,
-			height : 500,
+			height : 320,
 			href : '${pageContext.request.contextPath}/birdEquipController/view?id=' + id
 		});
 	}
@@ -176,7 +238,7 @@
 		parent.$.modalDialog({
 			title : '添加数据',
 			width : 780,
-			height : 500,
+			height : 320,
 			href : '${pageContext.request.contextPath}/birdEquipController/addPage',
 			buttons : [ {
 				text : '添加',
@@ -227,16 +289,18 @@
 							<th><%=TbirdEquip.ALIAS_STATUS%></th>	
 							<td>
 											<jb:select dataType="ST" name="status"></jb:select>	
-							</td>							
-							<th><%=TbirdEquip.ALIAS_GROUP%></th>	
+							</td>
+							<th><%=TbirdEquip.ALIAS_GROUP_TYPE%></th>	
 							<td>
-											<jb:select dataType="GP" name="group"></jb:select>	
+											<jb:select dataType="GP" name="groupType"></jb:select>	
 							</td>
 							<th><%=TbirdEquip.ALIAS_EQUIP_TYPE%></th>	
 							<td>
 											<jb:select dataType="ET" name="equipType"></jb:select>	
 							</td>
-						</tr>							
+							
+						</tr>	
+					
 				</table>
 			</form>
 		</div>
@@ -246,14 +310,20 @@
 	</div>
 	<div id="toolbar" style="display: none;">
 		<c:if test="${fn:contains(sessionInfo.resourceList, '/birdEquipController/addPage')}">
-			<a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'bug_add'">添加</a>
+			<a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'pencil_add'">添加</a>
 		</c:if>
-		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" onclick="searchFun();">过滤条件</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="cleanFun();">清空条件</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" onclick="searchFun();">查询</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="cleanFun();">清空条件</a>
 		<c:if test="${fn:contains(sessionInfo.resourceList, '/birdEquipController/download')}">
 			<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'server_go',plain:true" onclick="downloadTable();">导出</a>		
 			<form id="downloadTable" target="downloadIframe" method="post" style="display: none;">
 			</form>
 			<iframe id="downloadIframe" name="downloadIframe" style="display: none;"></iframe>
+		</c:if>
+		<c:if test="${fn:contains(sessionInfo.resourceList, '/birdEquipController/messagePage')}">
+			<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'sound',plain:true" onclick="openSendMessage();">发送指令</a>		
+		</c:if>
+		<c:if test="${fn:contains(sessionInfo.resourceList, '/birdEquipController/groupPage')}">
+			<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'tux',plain:true" onclick="groupEquip();">分组</a>		
 		</c:if>
 	</div>	
 </body>

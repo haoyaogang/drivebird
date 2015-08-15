@@ -37,40 +37,54 @@
 		<form id="form" method="post">		
 				<input type="hidden" name="id"/>
 			<table class="table table-hover table-condensed">
-				<tr>	
-											
+				<tr>													
 					<th><%=TbirdEquip.ALIAS_NAME%></th>	
 					<td>
 											<input class="span2" name="name" type="text"/>
 					</td>	
-					<th><%=TbirdEquip.ALIAS_EQUIP_TYPE%></th>	
+					<th><%=TbirdEquip.ALIAS_GROUP_TYPE%></th>	
 					<td>
-											<jb:select dataType="ET" name="equipType"></jb:select>	
+											<jb:select dataType="GP" name="groupType"></jb:select>	
+					</td>	
+											
+				</tr>	
+					
+				<tr>	
+					<th><%=TbirdEquip.ALIAS_PWD%></th>	
+					<td>
+											<input class="span2" name="pwd" type="text"/>
+					</td>						
+					<th><%=TbirdEquip.ALIAS_DTUTYPE%></th>	
+					<td>
+											<input class="span2" name="dtutype" type="text"/>
 					</td>							
 				</tr>	
 				<tr>	
 					<th><%=TbirdEquip.ALIAS_STATUS%></th>	
 					<td>
 											<jb:select dataType="ST" name="status"></jb:select>	
-					</td>							
-					<th><%=TbirdEquip.ALIAS_GROUP%></th>	
+					</td>	
+					<th><%=TbirdEquip.ALIAS_EQUIP_TYPE%></th>	
 					<td>
-											<jb:select dataType="GP" name="group"></jb:select>	
-					</td>						
-				</tr>	
+											<jb:select dataType="ET" name="equipType"></jb:select>	
+					</td>																		
+				</tr>
 				<tr>	
 											
 					<th><%=TbirdEquip.ALIAS_LOCATION%></th>	
-					<td>
-						<input class="span2" name="location" type="text"/>
-					</td>							
+					<td colspan="3">
+											<input class="span2" name="location" type="text" style="width:80%"/>
+					</td>	
+										
 				</tr>	
 				<tr>	
 					<th><%=TbirdEquip.ALIAS_REMARK%></th>	
-					<td>
-							<input class="span2" name="remark" type="text"/>
-					</td>																	
-				</tr>					
+					<td colspan="3">
+											<textarea class="span2" name="remark" style="width:80%"></textarea>
+					</td>							
+										
+				</tr>	
+				
 			</table>		
 		</form>
 	</div>

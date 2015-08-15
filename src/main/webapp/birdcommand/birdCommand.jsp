@@ -49,14 +49,14 @@
 				width : 150,
 				hidden : true
 				}, {
-				field : 'addtime',
-				title : '<%=TbirdCommand.ALIAS_ADDTIME%>',
-				width : 50		
-				}, {
 				field : 'command',
 				title : '<%=TbirdCommand.ALIAS_COMMAND%>',
 				width : 50		
 				}, {
+					field : 'name',
+					title : '<%=TbirdCommand.ALIAS_NAME%>',
+					width : 100		
+					}, {
 				field : 'equipType',
 				title : '<%=TbirdCommand.ALIAS_EQUIP_TYPE%>',
 				width : 50		
@@ -71,15 +71,15 @@
 				formatter : function(value, row, index) {
 					var str = '';
 					if ($.canEdit) {
-						str += $.formatString('<img onclick="editFun(\'{0}\');" src="{1}" title="编辑"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/bug/bug_edit.png');
+						str += $.formatString('<img onclick="editFun(\'{0}\');" src="{1}" title="编辑"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/pencil.png');
 					}
 					str += '&nbsp;';
 					if ($.canDelete) {
-						str += $.formatString('<img onclick="deleteFun(\'{0}\');" src="{1}" title="删除"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/bug/bug_delete.png');
+						str += $.formatString('<img onclick="deleteFun(\'{0}\');" src="{1}" title="删除"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/cancel.png');
 					}
 					str += '&nbsp;';
 					if ($.canView) {
-						str += $.formatString('<img onclick="viewFun(\'{0}\');" src="{1}" title="查看"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/bug/bug_link.png');
+						str += $.formatString('<img onclick="viewFun(\'{0}\');" src="{1}" title="查看"/>', row.id, '${pageContext.request.contextPath}/style/images/extjs_icons/link.png');
 					}
 					return str;
 				}
@@ -126,7 +126,7 @@
 		parent.$.modalDialog({
 			title : '编辑数据',
 			width : 780,
-			height : 500,
+			height : 220,
 			href : '${pageContext.request.contextPath}/birdCommandController/editPage?id=' + id,
 			buttons : [ {
 				text : '编辑',
@@ -147,7 +147,7 @@
 		parent.$.modalDialog({
 			title : '查看数据',
 			width : 780,
-			height : 500,
+			height : 220,
 			href : '${pageContext.request.contextPath}/birdCommandController/view?id=' + id
 		});
 	}
@@ -156,7 +156,7 @@
 		parent.$.modalDialog({
 			title : '添加数据',
 			width : 780,
-			height : 500,
+			height : 220,
 			href : '${pageContext.request.contextPath}/birdCommandController/addPage',
 			buttons : [ {
 				text : '添加',
@@ -196,27 +196,19 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit : true,border : false">
-		<div data-options="region:'north',title:'查询条件',border:false" style="height: 160px; overflow: hidden;">
+		<div data-options="region:'north',title:'查询条件',border:false" style="height: 70px; overflow: hidden;">
 			<form id="searchForm">
 				<table class="table table-hover table-condensed" style="display: none;">
-						<tr>	
-							<th><%=TbirdCommand.ALIAS_ADDTIME%></th>	
+						<tr>								
+							<th><%=TbirdCommand.ALIAS_NAME%></th>	
 							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TbirdCommand.FORMAT_ADDTIME%>'})" id="addtimeBegin" name="addtimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TbirdCommand.FORMAT_ADDTIME%>'})" id="addtimeEnd" name="addtimeEnd"/>
-							</td>
-							<th><%=TbirdCommand.ALIAS_COMMAND%></th>	
-							<td>
-											<input type="text" name="command" maxlength="36" class="span2"/>
+											<input type="text" name="name" maxlength="36" class="span2"/>
 							</td>
 							<th><%=TbirdCommand.ALIAS_EQUIP_TYPE%></th>	
 							<td>
 											<jb:select dataType="ET" name="equipType"></jb:select>	
 							</td>
-							<th><%=TbirdCommand.ALIAS_REMARK%></th>	
-							<td>
-											<input type="text" name="remark" maxlength="256" class="span2"/>
-							</td>
+							
 						</tr>	
 				</table>
 			</form>
@@ -227,7 +219,7 @@
 	</div>
 	<div id="toolbar" style="display: none;">
 		<c:if test="${fn:contains(sessionInfo.resourceList, '/birdCommandController/addPage')}">
-			<a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'bug_add'">添加</a>
+			<a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'pencil_add'">添加</a>
 		</c:if>
 		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" onclick="searchFun();">过滤条件</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="cleanFun();">清空条件</a>
 		<c:if test="${fn:contains(sessionInfo.resourceList, '/birdCommandController/download')}">

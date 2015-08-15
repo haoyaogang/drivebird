@@ -14,7 +14,9 @@ public class BirdEquip implements java.io.Serializable {
 	private java.lang.String name;	
 	private java.lang.String status;	
 	private java.lang.String equipType;	
-	private java.lang.String group;	
+	private java.lang.String groupType;	
+	private java.lang.String dtutype;	
+	private java.lang.String pwd;	
 	private java.lang.String location;	
 	private java.lang.String remark;	
 	private Date changetime;			
@@ -62,21 +64,33 @@ public class BirdEquip implements java.io.Serializable {
 	public java.lang.String getEquipType() {
 		return this.equipType;
 	}
-	public java.lang.String getEquipTypeZh() {		
+	public java.lang.String getEquipTypeZh() {
 		return Application.getString(this.equipType);
 	}
-	public void setGroup(java.lang.String group) {
-		this.group = group;
+	public void setGroupType(java.lang.String groupType) {
+		this.groupType = groupType;
 	}
 	
-	public java.lang.String getGroupZh() {
-		return Application.getString(this.group);
+	public java.lang.String getGroupType() {
+		return this.groupType;
+	}
+	public java.lang.String getGroupTypeZh() {
+		return Application.getString(this.groupType);
+	}
+	public void setDtutype(java.lang.String dtutype) {
+		this.dtutype = dtutype;
 	}
 	
-	public java.lang.String getGroup() {
-		return group;
+	public java.lang.String getDtutype() {
+		return this.dtutype;
 	}
-
+	public void setPwd(java.lang.String pwd) {
+		this.pwd = pwd;
+	}
+	
+	public java.lang.String getPwd() {
+		return this.pwd;
+	}
 	public void setLocation(java.lang.String location) {
 		this.location = location;
 	}

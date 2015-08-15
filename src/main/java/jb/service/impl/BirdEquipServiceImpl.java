@@ -61,7 +61,18 @@ public class BirdEquipServiceImpl extends BaseServiceImpl<BirdEquip> implements 
 				whereHql += " and t.equipType = :equipType";
 				params.put("equipType", birdEquip.getEquipType());
 			}		
-				
+			if (!F.empty(birdEquip.getGroupType())) {
+				whereHql += " and t.groupType = :groupType";
+				params.put("groupType", birdEquip.getGroupType());
+			}		
+			if (!F.empty(birdEquip.getDtutype())) {
+				whereHql += " and t.dtutype = :dtutype";
+				params.put("dtutype", birdEquip.getDtutype());
+			}		
+			if (!F.empty(birdEquip.getPwd())) {
+				whereHql += " and t.pwd = :pwd";
+				params.put("pwd", birdEquip.getPwd());
+			}		
 			if (!F.empty(birdEquip.getLocation())) {
 				whereHql += " and t.location = :location";
 				params.put("location", birdEquip.getLocation());
@@ -98,13 +109,35 @@ public class BirdEquipServiceImpl extends BaseServiceImpl<BirdEquip> implements 
 		TbirdEquip t = birdEquipDao.get(TbirdEquip.class, birdEquip.getId());
 		if (t != null) {
 			MyBeanUtils.copyProperties(birdEquip, t, new String[] { "id" , "createdatetime" },true);
-			//t.setModifydatetime(new Date());
 		}
 	}
 
 	@Override
 	public void delete(String id) {
 		birdEquipDao.delete(birdEquipDao.get(TbirdEquip.class, id));
+	}
+
+
+	@Override
+	public boolean logout(BirdEquip birdEquip) {
+		birdEquip.setStatus("ST02");
+		birdEquip.setChangetime(new Date());
+		edit(birdEquip);
+		return true;
+	}
+
+
+	@Override
+	public boolean login(BirdEquip birdEquip) {
+		TbirdEquip t = birdEquipDao.get(TbirdEquip.class, birdEquip.getId());
+		birdEquip.setStatus("ST01");
+		birdEquip.setChangetime(new Date());
+		if(t == null){
+			add(birdEquip);
+		}else{
+			MyBeanUtils.copyProperties(birdEquip, t, new String[] { "id" , "addtime" },true);
+		}
+		return true;
 	}
 
 }

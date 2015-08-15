@@ -38,23 +38,28 @@
 				<input type="hidden" name="id" value = "${birdCommand.id}"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TbirdCommand.ALIAS_ADDTIME%></th>	
-					<td>
-					<input class="span2" name="addtime" type="text" onclick="WdatePicker({dateFmt:'<%=TbirdCommand.FORMAT_ADDTIME%>'})"   maxlength="0" value="${birdCommand.addtime}"/>
-					</td>							
+											
 					<th><%=TbirdCommand.ALIAS_COMMAND%></th>	
 					<td>
 											<input class="span2" name="command" type="text" value="${birdCommand.command}"/>
+					</td>	
+					<th><%=TbirdCommand.ALIAS_NAME%></th>	
+					<td>
+											<input class="span2" name="name" type="text"  value="${birdCommand.name}"/>
 					</td>							
 			</tr>	
 				<tr>	
 					<th><%=TbirdCommand.ALIAS_EQUIP_TYPE%></th>	
-					<td>
+					<td colspan="3">
 											<jb:select dataType="ET" name="equipType" value="${birdCommand.equipType}"></jb:select>	
 					</td>							
+											
+			</tr>	
+			<tr>	
+											
 					<th><%=TbirdCommand.ALIAS_REMARK%></th>	
-					<td>
-											<input class="span2" name="remark" type="text" value="${birdCommand.remark}"/>
+					<td colspan="3">
+								<textarea class="span2" name="remark" style="width:80%">${birdCommand.remark}</textarea>
 					</td>							
 			</tr>	
 			</table>				

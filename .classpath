@@ -28,7 +28,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/androidpn-server-0.5.0.jar">
+	<classpathentry kind="lib" path="libs/androidpn-server-0.5.0.jar" sourcepath="E:/东普科技/软件/androidpn-server-0.5.0-src.zip">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
