@@ -70,6 +70,10 @@ public class DeviceStanzaHandler {
                         String dtuname = stanza.substring(11, 20);
                         String deviceNum= stanza.substring(20, 32);
                         String pwd = stanza.substring(32, 41);
+                        dtutype = dtutype.trim();
+                        dtuname = dtuname.trim();
+                        deviceNum = deviceNum.trim();
+                        pwd = pwd.trim();
                         session.setAuthToken(new AuthToken(deviceNum),RESOURCE);
                         session.setSessionData("deviceNum", deviceNum);
                         //System.out.println(JID.unescapeNode(session.getUsername()));

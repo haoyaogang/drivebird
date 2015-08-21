@@ -1,4 +1,4 @@
-﻿package jb.controller;
+package jb.controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
