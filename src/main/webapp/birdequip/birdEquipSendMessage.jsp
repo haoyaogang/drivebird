@@ -30,6 +30,16 @@
 				}
 			}
 		});
+		$('input[type="radio"]').click(function(){
+			var val = $(this).val();
+			if(val == 0){
+				$("#row1").show();
+				$("#row2").hide()
+			}else{
+				$("#row2").show();
+				$("#row1").hide()
+			}
+		});
 	});
 </script>
 <div class="easyui-layout" data-options="fit:true,border:false">
@@ -37,14 +47,41 @@
 		<form id="form" method="post">		
 			<input type="hidden" name="id" value = "${id}"/>		
 			<table class="table table-hover table-condensed">
-				<tr>	
+				<tr>
+
+					<th>指令类型</th>
+					<td>
+						<input type="radio" name="commandType" value=0 id="commandType01" checked="checked"><label for="commandType01">常规</label>
+						<input type="radio" name="commandType" value=1 id="commandType02"><label for="commandType02">音量</label>
+					</td>
+
+
+				</tr>
+				<tr id="row1">
 											
 					<th><%=TbirdCommand.ALIAS_COMMAND%></th>	
 					<td>
 							<jb:selectSql dataType="SL01" name="command"></jb:selectSql>	
-					</td>							
-				</tr>	
-				
+					</td>
+
+
+				</tr>
+				<tr id="row2" style="display: none;">
+
+					<td>
+						<input class="span2" name="voice" id="#voice" type="hidden"/>
+						<input  class="easyui-slider" value="12" style="width:300px" data-options="
+				showTip:true,
+				rule: [0,'|',25,'|',50,'|',75,'|',100],
+				tipFormatter: function(value){
+					return value;
+				},
+				onChange: function(value){
+					$('#voice').val(value);
+				}">		</td>
+
+				</tr>
+
 			</table>		
 		</form>
 	</div>

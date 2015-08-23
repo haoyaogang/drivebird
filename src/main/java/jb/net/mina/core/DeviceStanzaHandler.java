@@ -12,12 +12,16 @@ import org.androidpn.server.xmpp.net.Connection;
 import org.androidpn.server.xmpp.session.ClientSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.xmpp.packet.JID;
 
 public class DeviceStanzaHandler {
     private static final Log log = LogFactory.getLog(DeviceStanzaHandler.class);
     public static final String RESOURCE = "zwd-client";
-	protected Connection connection;
+    /**
+     * 音量控制
+     */
+    public static final String VOICE_CONTROL = "D2F4C1BF";
+    public static final String DEVICE_NUM = "deviceNum";
+    protected Connection connection;
 
     protected ClientSession session;
 
@@ -75,8 +79,7 @@ public class DeviceStanzaHandler {
                         deviceNum = deviceNum.trim();
                         pwd = pwd.trim();
                         session.setAuthToken(new AuthToken(deviceNum),RESOURCE);
-                        session.setSessionData("deviceNum", deviceNum);
-                        //System.out.println(JID.unescapeNode(session.getUsername()));
+                        session.setSessionData(DEVICE_NUM, deviceNum);
                         BirdEquip be = new BirdEquip();
                         be.setId(deviceNum);
                         be.setName(dtuname);
@@ -86,7 +89,9 @@ public class DeviceStanzaHandler {
                         	 equipService.login(be);
 	           	        }catch(Exception e){
 	                         log.error(deviceNum+" 注册 失败", e);
-	           	        }                     
+	           	        }
+                        //发送获取音量信息
+                        session.deliverRawText(VOICE_CONTROL);
                         //这里需要入库
                         log.debug("############### DTU devicenum = "+deviceNum);
                     }
@@ -95,6 +100,20 @@ public class DeviceStanzaHandler {
                 }
             }
             return;
+        }
+
+        if (session != null && stanza.indexOf(VOICE_CONTROL) > -1) {
+            String deviceNum = (String) session.getSessionData(DEVICE_NUM);
+            if (!F.empty(deviceNum)) {
+                BirdEquip be = new BirdEquip();
+                be.setId(deviceNum);
+                be.setVoice(stanza.trim());
+                try{
+                    equipService.edit(be);
+                }catch(Exception e){
+                    log.error(deviceNum+" 音量入库失败", e);
+                }
+            }
         }
 
         // If end of stream was requested
@@ -122,6 +141,11 @@ public class DeviceStanzaHandler {
 		ClientSession clientSession = DeviceSessionManager.getInstance().getSession(RESOURCE, username);
 		if(clientSession!=null){
 			clientSession.deliverRawText(message);
-		}
+            //修改音量设置，动态获取下最新音量
+            if(message.indexOf(VOICE_CONTROL)>-1){
+                clientSession.deliverRawText(VOICE_CONTROL);
+            }
+
+        }
 	}
 }

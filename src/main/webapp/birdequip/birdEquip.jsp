@@ -69,6 +69,10 @@
 				field : 'pwd',
 				title : '<%=TbirdEquip.ALIAS_PWD%>',
 				width : 50		
+				},{
+				field : 'voice',
+				title : '<%=TbirdEquip.ALIAS_VOICE%>',
+				width : 50
 				}, {
 				field : 'equipTypeZh',
 				title : '<%=TbirdEquip.ALIAS_EQUIP_TYPE%>',

@@ -1,8 +1,11 @@
 package jb.pageModel;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
+import jb.absx.F;
 import jb.listener.Application;
+import jb.util.Hex;
 
 @SuppressWarnings("serial")
 public class BirdEquip implements java.io.Serializable {
@@ -17,7 +20,8 @@ public class BirdEquip implements java.io.Serializable {
 	private java.lang.String groupType;	
 	private java.lang.String dtutype;	
 	private java.lang.String pwd;	
-	private java.lang.String location;	
+	private java.lang.String location;
+	private java.lang.String voice;
 	private java.lang.String remark;	
 	private Date changetime;			
 	private Date updatetime;			
@@ -120,4 +124,23 @@ public class BirdEquip implements java.io.Serializable {
 		return this.updatetime;
 	}
 
+	public String getVoice() {
+		return voice;
+	}
+
+	public String getVoiceDecode() {
+		if(F.empty(voice))return null;
+		String decodeStr = null;
+		try {
+			decodeStr = new String(Hex.decodeHex(voice.toCharArray()), "GBK");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return decodeStr;
+	}
+
+
+	public void setVoice(String voice) {
+		this.voice = voice;
+	}
 }

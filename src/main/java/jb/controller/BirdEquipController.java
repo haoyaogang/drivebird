@@ -25,203 +25,210 @@ import com.alibaba.fastjson.JSON;
 
 /**
  * BirdEquip管理控制器
- * 
+ *
  * @author John
- * 
  */
 @Controller
 @RequestMapping("/birdEquipController")
 public class BirdEquipController extends BaseController {
 
-	@Autowired
-	private BirdEquipServiceI birdEquipService;
+    @Autowired
+    private BirdEquipServiceI birdEquipService;
 
 
-	/**
-	 * 跳转到BirdEquip管理页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/manager")
-	public String manager(HttpServletRequest request) {
-		return "/birdequip/birdEquip";
-	}
+    /**
+     * 跳转到BirdEquip管理页面
+     *
+     * @return
+     */
+    @RequestMapping("/manager")
+    public String manager(HttpServletRequest request) {
+        return "/birdequip/birdEquip";
+    }
 
-	/**
-	 * 获取BirdEquip数据表格
-	 * 
-	 * @param user
-	 * @return
-	 */
-	@RequestMapping("/dataGrid")
-	@ResponseBody
-	public DataGrid dataGrid(BirdEquip birdEquip, PageHelper ph) {
-		return birdEquipService.dataGrid(birdEquip, ph);
-	}
-	/**
-	 * 获取BirdEquip数据表格excel
-	 * 
-	 * @param user
-	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws SecurityException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws IllegalArgumentException 
-	 * @throws IOException 
-	 */
-	@RequestMapping("/download")
-	public void download(BirdEquip birdEquip, PageHelper ph,String downloadFields,HttpServletResponse response) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, IOException{
-		DataGrid dg = dataGrid(birdEquip,ph);		
-		downloadFields = downloadFields.replace("&quot;", "\"");
-		downloadFields = downloadFields.substring(1,downloadFields.length()-1);
-		List<Colum> colums = JSON.parseArray(downloadFields, Colum.class);
-		downloadTable(colums, dg, response);
-	}
-	/**
-	 * 跳转到添加BirdEquip页面
-	 * 
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/addPage")
-	public String addPage(HttpServletRequest request) {
-		BirdEquip birdEquip = new BirdEquip();
-		birdEquip.setId(UUID.randomUUID().toString());
-		return "/birdequip/birdEquipAdd";
-	}
+    /**
+     * 获取BirdEquip数据表格
+     *
+     * @param birdEquip
+     * @return
+     */
+    @RequestMapping("/dataGrid")
+    @ResponseBody
+    public DataGrid dataGrid(BirdEquip birdEquip, PageHelper ph) {
+        return birdEquipService.dataGrid(birdEquip, ph);
+    }
 
-	
-	/**
-	 * 跳到发送指令页面
-	 * @param request
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/messagePage")
-	public String messagePage(HttpServletRequest request,String id) {
-		request.setAttribute("id", id);
-		return "/birdequip/birdEquipSendMessage";
-	}
-	
-	/**
-	 * 发送指令
-	 * @param request
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/sendMessage")
-	@ResponseBody
-	public Json sendMessage(HttpServletRequest request,String id,String command) {
-		Json j = new Json();	
-		String[] ids = id.split(",");
-		for(String username : ids){
-			DeviceStanzaHandler.sendMessage(username, command);
-		}
-		
-		return j;
-	}
-	/**
-	 * 跳到分组页面
-	 * @param request
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/groupPage")
-	public String groupPage(HttpServletRequest request,String id) {
-		request.setAttribute("id", id);
-		return "/birdequip/birdEquipGroup";
-	}
-	
-	/**
-	 * 分组
-	 * @param request
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/group")
-	@ResponseBody
-	public Json group(HttpServletRequest request,String id,String groupType) {
-		Json j = new Json();	
-		String[] ids = id.split(",");
-		for(String username : ids){
-			BirdEquip birdEquip = new BirdEquip();
-			birdEquip.setId(username);
-			birdEquip.setGroupType(groupType);
-			birdEquipService.edit(birdEquip);
-		}
-		
-		return j;
-	}
-	/**
-	 * 添加BirdEquip
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/add")
-	@ResponseBody
-	public Json add(BirdEquip birdEquip) {
-		Json j = new Json();		
-		birdEquipService.add(birdEquip);
-		j.setSuccess(true);
-		j.setMsg("添加成功！");		
-		return j;
-	}
+    /**
+     * 获取BirdEquip数据表格excel
+     *
+     * @param birdEquip
+     * @return
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
+    @RequestMapping("/download")
+    public void download(BirdEquip birdEquip, PageHelper ph, String downloadFields, HttpServletResponse response) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, IOException {
+        DataGrid dg = dataGrid(birdEquip, ph);
+        downloadFields = downloadFields.replace("&quot;", "\"");
+        downloadFields = downloadFields.substring(1, downloadFields.length() - 1);
+        List<Colum> colums = JSON.parseArray(downloadFields, Colum.class);
+        downloadTable(colums, dg, response);
+    }
 
-	/**
-	 * 跳转到BirdEquip查看页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/view")
-	public String view(HttpServletRequest request, String id) {
-		BirdEquip birdEquip = birdEquipService.get(id);
-		request.setAttribute("birdEquip", birdEquip);
-		return "/birdequip/birdEquipView";
-	}
+    /**
+     * 跳转到添加BirdEquip页面
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/addPage")
+    public String addPage(HttpServletRequest request) {
+        BirdEquip birdEquip = new BirdEquip();
+        birdEquip.setId(UUID.randomUUID().toString());
+        return "/birdequip/birdEquipAdd";
+    }
 
-	/**
-	 * 跳转到BirdEquip修改页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/editPage")
-	public String editPage(HttpServletRequest request, String id) {
-		BirdEquip birdEquip = birdEquipService.get(id);
-		request.setAttribute("birdEquip", birdEquip);
-		return "/birdequip/birdEquipEdit";
-	}
 
-	/**
-	 * 修改BirdEquip
-	 * 
-	 * @param birdEquip
-	 * @return
-	 */
-	@RequestMapping("/edit")
-	@ResponseBody
-	public Json edit(BirdEquip birdEquip) {
-		Json j = new Json();		
-		birdEquipService.edit(birdEquip);
-		j.setSuccess(true);
-		j.setMsg("编辑成功！");		
-		return j;
-	}
+    /**
+     * 跳到发送指令页面
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping("/messagePage")
+    public String messagePage(HttpServletRequest request, String id) {
+        request.setAttribute("id", id);
+        return "/birdequip/birdEquipSendMessage";
+    }
 
-	/**
-	 * 删除BirdEquip
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/delete")
-	@ResponseBody
-	public Json delete(String id) {
-		Json j = new Json();
-		birdEquipService.delete(id);
-		j.setMsg("删除成功！");
-		j.setSuccess(true);
-		return j;
-	}
+    /**
+     * 发送指令
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping("/sendMessage")
+    @ResponseBody
+    public Json sendMessage(HttpServletRequest request, String id, String command) {
+        Json j = new Json();
+        String[] ids = id.split(",");
+        for (String username : ids) {
+            DeviceStanzaHandler.sendMessage(username, command);
+        }
+
+        return j;
+    }
+
+    /**
+     * 跳到分组页面
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping("/groupPage")
+    public String groupPage(HttpServletRequest request, String id) {
+        request.setAttribute("id", id);
+        return "/birdequip/birdEquipGroup";
+    }
+
+    /**
+     * 分组
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping("/group")
+    @ResponseBody
+    public Json group(HttpServletRequest request, String id, String groupType) {
+        Json j = new Json();
+        String[] ids = id.split(",");
+        for (String username : ids) {
+            BirdEquip birdEquip = new BirdEquip();
+            birdEquip.setId(username);
+            birdEquip.setGroupType(groupType);
+            birdEquipService.edit(birdEquip);
+        }
+
+        return j;
+    }
+
+    /**
+     * 添加BirdEquip
+     *
+     * @return
+     */
+    @RequestMapping("/add")
+    @ResponseBody
+    public Json add(BirdEquip birdEquip) {
+        Json j = new Json();
+        birdEquipService.add(birdEquip);
+        j.setSuccess(true);
+        j.setMsg("添加成功！");
+        return j;
+    }
+
+    /**
+     * 跳转到BirdEquip查看页面
+     *
+     * @return
+     */
+    @RequestMapping("/view")
+    public String view(HttpServletRequest request, String id) {
+        BirdEquip birdEquip = birdEquipService.get(id);
+        request.setAttribute("birdEquip", birdEquip);
+        return "/birdequip/birdEquipView";
+    }
+
+    /**
+     * 跳转到BirdEquip修改页面
+     *
+     * @return
+     */
+    @RequestMapping("/editPage")
+    public String editPage(HttpServletRequest request, String id) {
+        BirdEquip birdEquip = birdEquipService.get(id);
+        request.setAttribute("birdEquip", birdEquip);
+        return "/birdequip/birdEquipEdit";
+    }
+
+    /**
+     * 修改BirdEquip
+     *
+     * @param birdEquip
+     * @return
+     */
+    @RequestMapping("/edit")
+    @ResponseBody
+    public Json edit(BirdEquip birdEquip) {
+        Json j = new Json();
+        birdEquipService.edit(birdEquip);
+        j.setSuccess(true);
+        j.setMsg("编辑成功！");
+        return j;
+    }
+
+    /**
+     * 删除BirdEquip
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Json delete(String id) {
+        Json j = new Json();
+        birdEquipService.delete(id);
+        j.setMsg("删除成功！");
+        j.setSuccess(true);
+        return j;
+    }
 
 }

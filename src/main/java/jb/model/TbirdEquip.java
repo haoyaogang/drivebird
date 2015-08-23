@@ -32,6 +32,7 @@ public class TbirdEquip implements java.io.Serializable,IEntity{
 	public static final String ALIAS_DTUTYPE = "设备型号";
 	public static final String ALIAS_PWD = "密码";
 	public static final String ALIAS_LOCATION = "位置";
+	public static final String ALIAS_VOICE = "音量";
 	public static final String ALIAS_REMARK = "备注";
 	public static final String ALIAS_CHANGETIME = "状态变更时间";
 	public static final String ALIAS_UPDATETIME = "updatetime";
@@ -62,6 +63,7 @@ public class TbirdEquip implements java.io.Serializable,IEntity{
 	private java.lang.String pwd;
 	//@Length(max=72)
 	private java.lang.String location;
+	private java.lang.String voice;
 	//@Length(max=256)
 	private java.lang.String remark;
 	//
@@ -189,7 +191,15 @@ public class TbirdEquip implements java.io.Serializable,IEntity{
 	public void setUpdatetime(java.util.Date updatetime) {
 		this.updatetime = updatetime;
 	}
-	
+
+	@Column(name = "voice", unique = false, nullable = true, insertable = true, updatable = true, length = 36)
+	public String getVoice() {
+		return voice;
+	}
+
+	public void setVoice(String voice) {
+		this.voice = voice;
+	}
 	
 	/*
 	public String toString() {
