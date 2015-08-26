@@ -50,9 +50,9 @@
 				<tr>
 
 					<th>指令类型</th>
-					<td>
-						<input type="radio" name="commandType" value=0 id="commandType01" checked="checked"><label for="commandType01">常规</label>
-						<input type="radio" name="commandType" value=1 id="commandType02"><label for="commandType02">音量</label>
+					<td >
+						<input type="radio" name="commandType" value=0 id="commandType01" checked="checked"><label for="commandType01" style="display:inline;">常规</label>
+						<input type="radio" name="commandType" value=1 id="commandType02"><label for="commandType02" style="display:inline;">音量</label>
 					</td>
 
 
@@ -68,8 +68,8 @@
 				</tr>
 				<tr id="row2" style="display: none;">
 
-					<td>
-						<input class="span2" name="voice" id="#voice" type="hidden"/>
+					<td colspan="2">
+						<input class="span2" name="voice" id="voice" type="hidden"/>
 						<input  class="easyui-slider" value="12" style="width:300px" data-options="
 				showTip:true,
 				rule: [0,'|',25,'|',50,'|',75,'|',100],

@@ -1,6 +1,7 @@
 package jb.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.UUID;
@@ -8,13 +9,15 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jb.absx.F;
 import jb.net.mina.core.DeviceStanzaHandler;
-import jb.pageModel.Colum;
 import jb.pageModel.BirdEquip;
+import jb.pageModel.Colum;
 import jb.pageModel.DataGrid;
 import jb.pageModel.Json;
 import jb.pageModel.PageHelper;
 import jb.service.BirdEquipServiceI;
+import jb.util.Hex;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -115,13 +118,26 @@ public class BirdEquipController extends BaseController {
      */
     @RequestMapping("/sendMessage")
     @ResponseBody
-    public Json sendMessage(HttpServletRequest request, String id, String command) {
+    public Json sendMessage(HttpServletRequest request, String id, String command,Integer commandType,String voice) {
         Json j = new Json();
         String[] ids = id.split(",");
-        for (String username : ids) {
-            DeviceStanzaHandler.sendMessage(username, command);
+        if(1==commandType){
+        	String gbkVoic = "音量设置"+voice;
+        	try {
+				command = Hex.encodeHexStr(gbkVoic.getBytes("GBK"),false);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	for (String username : ids) {
+	            DeviceStanzaHandler.sendMessage(username, command);
+	        }
+        	
+        }else{
+	        for (String username : ids) {
+	            DeviceStanzaHandler.sendMessage(username, command);
+	        }
         }
-
         return j;
     }
 

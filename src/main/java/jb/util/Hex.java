@@ -155,16 +155,27 @@ public class Hex {
 		return digit;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnsupportedEncodingException {
 		//String srcStr = "待转换字符串";
 		//String encodeStr = encodeHexStr(srcStr.getBytes());
-		String encodeStr = "D2F4C1BF3130233123313030";
+		/*String encodeStr = "D2F4C1BF";
 		String decodeStr = null;
 		try {
 			decodeStr = new String(decodeHex(encodeStr.toCharArray()),"GBK");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-		}
+		}*/
+		
+		String srcStr = "音量";
+		//String s = new String(srcStr.getBytes("GBK"));
+		//System.out.println(s);
+				String encodeStr = encodeHexStr(srcStr.getBytes("GBK"),false);
+				String decodeStr = null;
+				try {
+					decodeStr = new String(decodeHex(encodeStr.toCharArray()),"GBK");
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
 		//System.out.println("转换前：" + srcStr);
 		System.out.println("转换后：" + encodeStr);
 		System.out.println("还原后：" + decodeStr);

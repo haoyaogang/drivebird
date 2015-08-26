@@ -70,7 +70,7 @@
 				title : '<%=TbirdEquip.ALIAS_PWD%>',
 				width : 50		
 				},{
-				field : 'voice',
+				field : 'voiceDecode',
 				title : '<%=TbirdEquip.ALIAS_VOICE%>',
 				width : 50
 				}, {

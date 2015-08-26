@@ -7,143 +7,148 @@
 <head>
 <title><%=Application.getString("SV001")%></title>
 <jsp:include page="inc.jsp"></jsp:include>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/jslib/jquery-easyui-1.3.3/themes/default/easyui.css"
+	type="text/css">
 <script type="text/javascript">
-	var index_tabs;
-	var index_tabsMenu;
 	var index_layout;
+	var controlform;
+	var dataGrid;
+	$.ajax({ url: '${pageContext.request.contextPath}/birdCommandController/dataGrid', dataType: "json",data:{rows:10000}, success: function(data){
+        var buttonCommand = $('#buttonCommand');
+        
+		$(data.rows).each(function(i){
+			var _this = data.rows[i];
+			buttonCommand.append('<span class="badge badge-info"  onclick="sendCommand(\''+_this.command+'\')">'+_this.name+'</span>');
+        });
+      }});
+	
+	function sendCommand(command){
+		$('#commandType').val(0);
+		$('#command').val(command);
+		controlform.submit();
+	}
 	$(function() {
 		index_layout = $('#index_layout').layout({
 			fit : true
 		});
-		/*index_layout.layout('collapse', 'east');*/
-
-		index_tabs = $('#index_tabs').tabs({
-			fit : true,
-			border : false,
-			onContextMenu : function(e, title) {
-				e.preventDefault();
-				index_tabsMenu.menu('show', {
-					left : e.pageX,
-					top : e.pageY
-				}).data('tabTitle', title);
-			},
-			tools : [ {
-				iconCls : 'database_refresh',
-				handler : function() {
-					var href = index_tabs.tabs('getSelected').panel('options').href;
-					if (href) {/*说明tab是以href方式引入的目标页面*/
-						var index = index_tabs.tabs('getTabIndex', index_tabs.tabs('getSelected'));
-						index_tabs.tabs('getTab', index).panel('refresh');
-					} else {/*说明tab是以content方式引入的目标页面*/
-						var panel = index_tabs.tabs('getSelected').panel('panel');
-						var frame = panel.find('iframe');
-						try {
-							if (frame.length > 0) {
-								for ( var i = 0; i < frame.length; i++) {
-									frame[i].contentWindow.document.write('');
-									frame[i].contentWindow.close();
-									frame[i].src = frame[i].src;
-								}
-								if (navigator.userAgent.indexOf("MSIE") > 0) {// IE特有回收内存方法
-									try {
-										CollectGarbage();
-									} catch (e) {
-									}
-								}
-							}
-						} catch (e) {
-						}
-					}
-				}
-			}, {
-				iconCls : 'delete',
-				handler : function() {
-					var index = index_tabs.tabs('getTabIndex', index_tabs.tabs('getSelected'));
-					var tab = index_tabs.tabs('getTab', index);
-					if (tab.panel('options').closable) {
-						index_tabs.tabs('close', index);
-					} else {
-						$.messager.alert('提示', '[' + tab.panel('options').title + ']不可以被关闭！', 'error');
-					}
-				}
-			} ]
-		});
-
-		index_tabsMenu = $('#index_tabsMenu').menu({
-			onClick : function(item) {
-				var curTabTitle = $(this).data('tabTitle');
-				var type = $(item.target).attr('title');
-
-				if (type === 'refresh') {
-					index_tabs.tabs('getTab', curTabTitle).panel('refresh');
-					return;
-				}
-
-				if (type === 'close') {
-					var t = index_tabs.tabs('getTab', curTabTitle);
-					if (t.panel('options').closable) {
-						index_tabs.tabs('close', curTabTitle);
-					}
-					return;
-				}
-
-				var allTabs = index_tabs.tabs('tabs');
-				var closeTabsTitle = [];
-
-				$.each(allTabs, function() {
-					var opt = $(this).panel('options');
-					if (opt.closable && opt.title != curTabTitle && type === 'closeOther') {
-						closeTabsTitle.push(opt.title);
-					} else if (opt.closable && type === 'closeAll') {
-						closeTabsTitle.push(opt.title);
-					}
+		controlform = $('#controlform').form({
+			url : '${pageContext.request.contextPath}/birdEquipController/sendMessage',
+			onSubmit : function() {
+				parent.$.messager.progress({
+					title : '提示',
+					text : '数据处理中，请稍后....'
 				});
-
-				for ( var i = 0; i < closeTabsTitle.length; i++) {
-					index_tabs.tabs('close', closeTabsTitle[i]);
+				var isValid = $(this).form('validate');
+				
+				var equipId = $('#equipId').val();
+				if(!equipId){
+					//alert(equipId);
+					parent.$.messager.alert('提示', "请选择设备", 'info');
+					isValid = false;
+				}
+				if (!isValid) {
+					parent.$.messager.progress('close');
+				}
+				return isValid;
+			},
+			success : function(result) {
+				parent.$.messager.progress('close');
+				result = $.parseJSON(result);
+				if (result.success) {
+					
+				} else {
+					$.messager.alert('错误', result.msg, 'error');
 				}
 			}
+		});
+		dataGrid = $('#dataGrid').datagrid({
+			url : '${pageContext.request.contextPath}/birdEquipController/dataGrid?rows=10000',
+			
+			border : false,
+			pagination : false,
+			idField : 'id',
+			pageSize : 10,
+			pageList : [ 10, 20, 30, 40, 50 ],
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			striped : false,
+			rownumbers : false,
+			singleSelect : true,
+			columns : [ [ {
+				field : 'id',
+				title : '编号',
+				width : 100,
+				checkbox : false,
+				hidden:true
+				}, {
+				field : 'name',
+				title : '设备名称',
+				width : 192	
+				}
+			 ] ],
+			toolbar : '#toolbar',
+			onLoadSuccess : function() {
+				parent.$.messager.progress('close');
+				$(this).datagrid('tooltip');
+			},
+			onClickRow:function(index,row){
+				$("#equipId").val(row.id);
+				var voiceDecode = row.voiceDecode;
+				if(voiceDecode){
+					voiceDecode = voiceDecode.replace("音量","");
+					voiceDecode = voiceDecode.split("#");
+					$('#slider').slider('setValue',voiceDecode[0]);
+				}				
+			}	
 		});
 	});
 </script>
 </head>
 <body>
 
-	<jsp:include page="user/login.jsp"></jsp:include>
-	<jsp:include page="user/reg.jsp"></jsp:include>
-
 	<div id="index_layout">
 		<div
-			data-options="region:'north',href:'${pageContext.request.contextPath}/layout/north.jsp'"
+			data-options="region:'north',href:'${pageContext.request.contextPath}/layout/north1.jsp'"
 			style="height: 70px; overflow: hidden;" class="logo"></div>
-		<div
-			data-options="region:'west',href:'${pageContext.request.contextPath}/layout/west.jsp',split:true"
-			title="模块导航" style="width: 200px; overflow: hidden;"></div>
-		<div data-options="region:'center'"
-			title="<%=Application.getString("SV003")%>" style="overflow: hidden;">
-			<div id="index_tabs" style="overflow: hidden;">
-				<%-- <div title="首页" data-options="border:false"
-					style="overflow: hidden;">
-					<iframe src="${pageContext.request.contextPath}/portal/index.jsp"
-						frameborder="0" style="border: 0; width: 100%; height: 98%;"></iframe>
-				</div> --%>
-			</div>
+		<div data-options="region:'west',split:true,border:true" style="width: 200px; overflow: hidden;">
+			<table id="dataGrid"></table></div>
+		<div data-options="region:'center'" style="overflow: hidden;">
+			<div class="easyui-panel" title="音量控制" style="width:700px;height:200px;padding:10px;">
+			<form id="controlform" method="post">		
+				<input type="hidden" name="id" id="equipId" />	
+				<input type="hidden" name="commandType" id="commandType" value = 0/>	
+				<input type="hidden" name="command" id="command" value =""/>	
+				<input type="hidden" name="voice" id="voice" value = 0/>					
+			</form>
+			<br>
+		        <input  class="easyui-slider" id="slider" value="12" style="width:300px" data-options="
+				showTip:true,
+				rule: [0,'|',25,'|',50,'|',75,'|',100],
+				tipFormatter: function(value){
+					return value;
+				},
+				onSlideEnd: function(value){
+					$('#voice').val(value);
+					$('#commandType').val(1);
+					controlform.submit();
+				},
+				onChange: function(value){
+					
+				}">	
+   			 </div>
+   			 
+   			 <div class="easyui-panel" title="常规控制" style="width:700px;height:200px;padding:10px;">
+		        <div style="padding:5px;" id="buttonCommand">			        
+			    </div>
+   			 </div>
 		</div>
-		<%-- 		
-<div data-options="region:'east',href:'${pageContext.request.contextPath}/layout/east.jsp'" title="日历" style="width: 230px; overflow: hidden;"></div>
- --%>
 		<div
-			data-options="region:'south',href:'${pageContext.request.contextPath}/layout/south.jsp',border:false"
+			data-options="region:'south',border:false"
 			style="height: 30px; overflow: hidden;"></div>
 	</div>
-
-	<div id="index_tabsMenu" style="width: 120px; display: none;">
-		<div title="refresh" data-options="iconCls:'transmit'">刷新</div>
-		<div class="menu-sep"></div>
-		<div title="close" data-options="iconCls:'delete'">关闭</div>
-		<div title="closeOther" data-options="iconCls:'delete'">关闭其他</div>
-		<div title="closeAll" data-options="iconCls:'delete'">关闭所有</div>
-	</div>
-
 </body>
 </html>
