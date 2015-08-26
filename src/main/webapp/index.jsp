@@ -96,16 +96,28 @@
 				$(this).datagrid('tooltip');
 			},
 			onClickRow:function(index,row){
-				$("#equipId").val(row.id);
+				$("#equipId").val(row.id);				
 				var voiceDecode = row.voiceDecode;
 				if(voiceDecode){
 					voiceDecode = voiceDecode.replace("音量","");
 					voiceDecode = voiceDecode.split("#");
-					$('#slider').slider('setValue',voiceDecode[0]);
+					$('#slider').slider({rule:[voiceDecode[1],'|',voiceDecode[2]]});
+					if(row.cvalue){
+						$('#slider').slider('setValue',row.cvalue);	
+						
+					}else{
+						$('#slider').slider('setValue',voiceDecode[0]);					
+
+					}
 				}				
 			}	
 		});
 	});
+function changeSelectVal(val){	
+	var row = dataGrid.datagrid('getSelected');
+	if(row)
+	row.cvalue = val;
+}	
 </script>
 </head>
 <body>
@@ -135,6 +147,7 @@
 					$('#voice').val(value);
 					$('#commandType').val(1);
 					controlform.submit();
+					changeSelectVal(value);
 				},
 				onChange: function(value){
 					
