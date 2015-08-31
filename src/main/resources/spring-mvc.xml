@@ -76,6 +76,7 @@
 						<value>/userController/currentUserResourcePage</value><!-- 查看自己的权限页面 -->
 						<value>/diveCountryController/getListByAdCode</value><!-- 根据洲编码查询国家 -->
 						<value>/diveAreaController/getAreaByCountryCode</value><!-- 根据国家代码查询省市区 -->
+						<value>/fileController/download</value><!-- 下载 -->
 					</list>
 				</property>
 			</bean>
@@ -89,6 +90,7 @@
 						<value>/api/apiAccountController/register</value><!-- 用户注册 -->
 						<value>/api/apiAccountController/login</value><!-- 用户登录 -->
 						<value>/api/apiCommon/html</value><!-- 获取详情html -->
+						<value>/api/apiCommon/upload_errorlog</value><!-- token过期错误返回 -->
 					</list>
 				</property>
 				<property name="tokenManage" ref="tokenManage" />

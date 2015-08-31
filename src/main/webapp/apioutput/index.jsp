@@ -19,7 +19,8 @@
 				style="padding: 1px"></div>
 			<div title="发送指令" data-options="href:'api_send_command.jsp'"
 				style="padding: 1px"></div>	
-				
+			<div title="APP错误日志上传" data-options="href:'api_app_errorlog.jsp'"
+				style="padding: 1px"></div>	
 			
 		</div>
 	</div>

@@ -29,6 +29,9 @@ public class Tbug implements java.io.Serializable {
 	private Clob note;
 	private Date createdatetime;
 	private Date modifydatetime;
+	private String filePath;
+	private String systemType;
+	private String phoneModel;
 
 	public Tbug() {
 	}
@@ -104,4 +107,32 @@ public class Tbug implements java.io.Serializable {
 		this.modifydatetime = modifydatetime;
 	}
 
+	@Column(name = "file_path", length = 128)
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	@Column(name = "system_type", length = 128)
+	public String getSystemType() {
+		return systemType;
+	}
+
+	public void setSystemType(String systemType) {
+		this.systemType = systemType;
+	}
+
+	@Column(name = "phone_model", length = 128)
+	public String getPhoneModel() {
+		return phoneModel;
+	}
+
+	public void setPhoneModel(String phoneModel) {
+		this.phoneModel = phoneModel;
+	}
+
+	
 }

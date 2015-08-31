@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
@@ -7,20 +6,17 @@
 <head>
 <title>BUG管理</title>
 <jsp:include page="../inc.jsp"></jsp:include>
-<c:if
-	test="${fn:contains(sessionInfo.resourceList, '/bugController/editPage')}">
+<c:if test="${fn:contains(sessionInfo.resourceList, '/bugController/editPage')}">
 	<script type="text/javascript">
 		$.canEdit = true;
 	</script>
 </c:if>
-<c:if
-	test="${fn:contains(sessionInfo.resourceList, '/bugController/delete')}">
+<c:if test="${fn:contains(sessionInfo.resourceList, '/bugController/delete')}">
 	<script type="text/javascript">
 		$.canDelete = true;
 	</script>
 </c:if>
-<c:if
-	test="${fn:contains(sessionInfo.resourceList, '/bugController/view')}">
+<c:if test="${fn:contains(sessionInfo.resourceList, '/bugController/view')}">
 	<script type="text/javascript">
 		$.canView = true;
 	</script>
@@ -51,20 +47,20 @@
 				width : 150,
 				hidden : true
 			}, {
-				field : 'name',
-				title : 'BUG名称',
-				width : 80,
-				sortable : true
-			} ] ],
-			columns : [ [ {
 				field : 'createdatetime',
 				title : '创建时间',
 				width : 150,
 				sortable : true
+			} ] ],
+			columns : [ [ {
+				field : 'systemType',
+				title : '系统类型',
+				width : 80,
+				sortable : true
 			}, {
-				field : 'modifydatetime',
-				title : '最后修改时间',
-				width : 150,
+				field : 'phoneModel',
+				title : '手机型号',
+				width : 100,
 				sortable : true
 			}, {
 				field : 'typeId',
@@ -200,17 +196,16 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit : true,border : false">
-		<div data-options="region:'north',title:'查询条件',border:false"
-			style="height: 160px; overflow: hidden;">
+		<div data-options="region:'north',title:'查询条件',border:false" style="height: 120px; overflow: hidden;">
 			<form id="searchForm">
-				<table class="table table-hover table-condensed"
-					style="display: none;">
+				<table class="table table-hover table-condensed" style="display: none;">
 					<tr>
-						<th>BUG名称</th>
-						<td><input name="name" placeholder="可以模糊查询" class="span2" /></td>
+						<th>系统类型</th>
+						<td><input name="systemType" placeholder="可以模糊查询" class="span2" /></td>
+						<th>手机型号</th>
+						<td><input name="phoneModel" placeholder="可以模糊查询" class="span2" /></td>
 						<th>BUG类型</th>
-						<td><select name="typeId" class="easyui-combobox"
-							data-options="width:140,height:29,editable:false,panelHeight:'auto'">
+						<td><select name="typeId" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
 								<option value=""></option>
 								<c:forEach items="${bugTypeList}" var="bugType">
 									<option value="${bugType.id}">${bugType.name}</option>
@@ -219,19 +214,7 @@
 					</tr>
 					<tr>
 						<th>创建时间</th>
-						<td colspan="3"><input class="span2"
-							name="createdatetimeStart" placeholder="点击选择时间"
-							onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" />至<input
-							class="span2" name="createdatetimeEnd" placeholder="点击选择时间"
-							onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" /></td>
-					</tr>
-					<tr>
-						<th>最后修改时间</th>
-						<td colspan="3"><input class="span2"
-							name="modifydatetimeStart" placeholder="点击选择时间"
-							onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" />至<input
-							class="span2" name="modifydatetimeEnd" placeholder="点击选择时间"
-							onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" /></td>
+						<td colspan="5"><input class="span2" name="createdatetimeStart" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" />至<input class="span2" name="createdatetimeEnd" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" /></td>
 					</tr>
 				</table>
 			</form>
@@ -241,30 +224,20 @@
 		</div>
 	</div>
 	<div id="toolbar" style="display: none;">
-		<c:if
-			test="${fn:contains(sessionInfo.resourceList, '/bugController/addPage')}">
-			<a onclick="addFun();" href="javascript:void(0);"
-				class="easyui-linkbutton"
-				data-options="plain:true,iconCls:'bug_add'">添加</a>
+		<c:if test="${fn:contains(sessionInfo.resourceList, '/bugController/addPage')}">
+			<a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'bug_add'">添加</a>
 		</c:if>
-		<a href="javascript:void(0);" class="easyui-linkbutton"
-			data-options="iconCls:'brick_add',plain:true" onclick="searchFun();">过滤条件</a><a
-			href="javascript:void(0);" class="easyui-linkbutton"
-			data-options="iconCls:'brick_delete',plain:true"
-			onclick="cleanFun();">清空条件</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" onclick="searchFun();">过滤条件</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="cleanFun();">清空条件</a>
 	</div>
 
 	<div id="menu" class="easyui-menu" style="width: 120px; display: none;">
-		<c:if
-			test="${fn:contains(sessionInfo.resourceList, '/bugController/addPage')}">
+		<c:if test="${fn:contains(sessionInfo.resourceList, '/bugController/addPage')}">
 			<div onclick="addFun();" data-options="iconCls:'pencil_add'">增加</div>
 		</c:if>
-		<c:if
-			test="${fn:contains(sessionInfo.resourceList, '/bugController/delete')}">
+		<c:if test="${fn:contains(sessionInfo.resourceList, '/bugController/delete')}">
 			<div onclick="deleteFun();" data-options="iconCls:'pencil_delete'">删除</div>
 		</c:if>
-		<c:if
-			test="${fn:contains(sessionInfo.resourceList, '/bugController/editPage')}">
+		<c:if test="${fn:contains(sessionInfo.resourceList, '/bugController/editPage')}">
 			<div onclick="editFun();" data-options="iconCls:'pencil'">编辑</div>
 		</c:if>
 	</div>

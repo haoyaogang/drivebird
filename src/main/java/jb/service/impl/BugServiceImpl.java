@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jb.absx.F;
 import jb.dao.BugDaoI;
 import jb.dao.BugTypeDaoI;
 import jb.model.Tbug;
@@ -86,6 +87,14 @@ public class BugServiceImpl implements BugServiceI {
 				whereHql += " and type.id = :type ";
 				params.put("type", bug.getTypeId());
 			}
+			if(!F.empty(bug.getSystemType())) {
+				whereHql += " and t.systemType like :systemType";
+				params.put("systemType", "%%" + bug.getSystemType() + "%%");
+			}
+			if(!F.empty(bug.getPhoneModel())) {
+				whereHql += " and t.phoneModel like :phoneModel";
+				params.put("phoneModel", "%%" + bug.getPhoneModel() + "%%");
+			}
 		}
 		return whereHql;
 	}
@@ -96,7 +105,9 @@ public class BugServiceImpl implements BugServiceI {
 		BeanUtils.copyProperties(bug, t, new String[] { "note" });
 		t.setTbugtype(bugTypeDao.getById(bug.getTypeId()));
 		t.setNote(ClobUtil.getClob(bug.getNote()));
-		t.setCreatedatetime(new Date());
+		if(t.getCreatedatetime() == null) {
+			t.setCreatedatetime(new Date());
+		}
 		bugDao.save(t);
 	}
 

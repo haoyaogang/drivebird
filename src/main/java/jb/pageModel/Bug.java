@@ -12,6 +12,10 @@ public class Bug implements java.io.Serializable {
 	private String note;
 	private Date createdatetime;
 	private Date modifydatetime;
+	
+	private String filePath;
+	private String systemType;
+	private String phoneModel;
 
 	private Date createdatetimeStart;
 	private Date createdatetimeEnd;
@@ -104,6 +108,30 @@ public class Bug implements java.io.Serializable {
 
 	public void setModifydatetime(Date modifydatetime) {
 		this.modifydatetime = modifydatetime;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getSystemType() {
+		return systemType;
+	}
+
+	public void setSystemType(String systemType) {
+		this.systemType = systemType;
+	}
+
+	public String getPhoneModel() {
+		return phoneModel;
+	}
+
+	public void setPhoneModel(String phoneModel) {
+		this.phoneModel = phoneModel;
 	}
 
 }
