@@ -140,4 +140,12 @@ public class BirdEquipServiceImpl extends BaseServiceImpl<BirdEquip> implements 
 		return true;
 	}
 
+
+	@Override
+	public void clearStatus(){
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("status", "ST02");
+		birdEquipDao.executeHql("update TbirdEquip t set t.status = :status", params);		
+	}
+
 }

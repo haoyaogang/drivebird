@@ -27,11 +27,17 @@ public class Application implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {	
 		 context = event.getServletContext();	
 		 initAppVariable();
+		 clearConnectStatus();
 		 XmppServer.getInstance();
 		 ConfigManager.getInstance().getConfig().setProperty("server.home.dir", Application.class.getResource("/").getPath());
 		
 	}
 
+	private void clearConnectStatus(){
+		ApplicationContext app = WebApplicationContextUtils.getWebApplicationContext(context); 
+		BirdEquipServiceI birdEquipService = app.getBean(BirdEquipServiceI.class);
+		birdEquipService.clearStatus();
+	}
 	private static void initAppVariable(){
 		ApplicationContext app = WebApplicationContextUtils.getWebApplicationContext(context); 
 		BasedataServiceI service = app.getBean(BasedataServiceI.class);

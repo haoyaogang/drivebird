@@ -65,5 +65,7 @@ public interface BirdEquipServiceI {
 	 * @param id
 	 */
 	public void delete(String id);
+	
+	public void clearStatus();
 
 }
