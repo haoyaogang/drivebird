@@ -82,7 +82,11 @@
 							<bean class="jb.net.mina.codec.TextCodecFactory" />
 						</constructor-arg>
 					</bean>
-				</entry>				
+				</entry>
+				<!-- <entry key="keepAlive">
+					<bean class="jb.net.mina.filter.MyKeepAliveFilter"/>
+				</entry>	 -->
+							
 			</map>
 		</property>
 	</bean>
