@@ -1,5 +1,8 @@
 package jb.net.mina.core;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jb.absx.F;
 import jb.listener.Application;
 import jb.net.mina.session.DeviceSessionManager;
@@ -12,6 +15,8 @@ import org.androidpn.server.xmpp.net.Connection;
 import org.androidpn.server.xmpp.session.ClientSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.alibaba.fastjson.JSON;
 
 public class DeviceStanzaHandler {
     private static final Log log = LogFactory.getLog(DeviceStanzaHandler.class);
@@ -135,7 +140,12 @@ public class DeviceStanzaHandler {
             log.debug("#################  mina DTU broadcast ="+message);
             //nm.sendBroadcast(apiKey, title, message, "");
         }*/
-        NotificationMesageUtil.sendBroadcast(stanza);
+        if(!F.empty(stanza)&&session!=null){
+	        Map<String,String> message = new HashMap<String,String>();
+	        message.put(DEVICE_NUM, (String) session.getSessionData(DEVICE_NUM));
+	        message.put("body", stanza);
+	        NotificationMesageUtil.sendBroadcast(JSON.toJSONString(message));
+        }
     }
 	public static void sendMessage(String username,String message){
 		ClientSession clientSession = DeviceSessionManager.getInstance().getSession(RESOURCE, username);
