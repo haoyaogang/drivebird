@@ -87,8 +87,12 @@
 				}, {
 				field : 'name',
 				title : '设备名称',
-				width : 192	
-				}
+				width : 158	
+				}, {
+					field : 'statusZh',
+					title : '状态',
+					width : 32	
+					}
 			 ] ],
 			toolbar : '#toolbar',
 			onLoadSuccess : function() {

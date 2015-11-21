@@ -96,7 +96,7 @@ public class DeviceStanzaHandler {
 	                         log.error(deviceNum+" 注册 失败", e);
 	           	        }
                         //发送获取音量信息
-                        session.deliverRawText(VOICE_CONTROL);
+                        //session.deliverRawText(VOICE_CONTROL);
                         //这里需要入库
                         log.debug("############### DTU devicenum = "+deviceNum);
                     }
@@ -158,4 +158,5 @@ public class DeviceStanzaHandler {
 
         }
 	}
+
 }

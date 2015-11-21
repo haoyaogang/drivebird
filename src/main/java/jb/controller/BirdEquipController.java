@@ -123,12 +123,12 @@ public class BirdEquipController extends BaseController {
         String[] ids = id.split(",");
         if(1==commandType){
         	String gbkVoic = "音量设置"+voice;
-        	try {
+        	/*try {
 				command = Hex.encodeHexStr(gbkVoic.getBytes("GBK"),false);
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
         	for (String username : ids) {
 	            DeviceStanzaHandler.sendMessage(username, command);
 	        }

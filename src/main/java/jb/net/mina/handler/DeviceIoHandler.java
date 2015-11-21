@@ -2,6 +2,7 @@ package jb.net.mina.handler;
 
 import jb.net.mina.core.DeviceStanzaHandler;
 
+import org.androidpn.server.util.Config;
 import org.androidpn.server.xmpp.XmppServer;
 import org.androidpn.server.xmpp.net.Connection;
 import org.apache.commons.logging.Log;
@@ -51,9 +52,8 @@ public class DeviceIoHandler extends IoHandlerAdapter {
     }
 
     @Override
-    public void messageSent(IoSession session, Object arg1) throws Exception {
-        // TODO Auto-generated method stub
-
+    public void messageSent(IoSession session, Object message) throws Exception {
+    	
     }
 
     @Override
@@ -77,7 +77,7 @@ public class DeviceIoHandler extends IoHandlerAdapter {
     	// 如果IoSession闲置，则关闭连接  
     	 if (status == IdleStatus.BOTH_IDLE){  
     		 
-    		 sendHeartBeat(session);
+    		 // sendHeartBeat(session);
     	 }  
     }
 
@@ -113,7 +113,50 @@ public class DeviceIoHandler extends IoHandlerAdapter {
         // TODO Auto-generated method stub
         log.debug("#################  mina Device Server sessionOpened..3.");
      // Create a new connection
-        Connection connection = new Connection(session);
+        Connection connection = new Connection(session){
+            private IoSession ioSession;
+            public Connection setSession(IoSession ioSession){
+            	this.ioSession = ioSession;
+            	return this;
+            }
+        	public void deliverRawText(String text) {
+                deliverRawText(text, true);
+            }
+
+            private void deliverRawText(String text, boolean asynchronous) {
+                log.debug("SENT: " + text);
+                if (!isClosed()) {
+                    IoBuffer buffer = IoBuffer.allocate(text.length());
+                    buffer.setAutoExpand(true);
+
+                    boolean errorDelivering = false;
+                    try {
+                        buffer.put(text.getBytes("GBK"));
+                        buffer.flip();
+                        if (asynchronous) {
+                            ioSession.write(buffer);
+                        } else {
+                            // Send stanza and wait for ACK
+                            boolean ok = ioSession.write(buffer).awaitUninterruptibly(
+                                    Config.getInt("connection.ack.timeout", 2000));
+                            if (!ok) {
+                                log.warn("No ACK was received when sending stanza to: "
+                                        + this.toString());
+                            }
+                        }
+                    } catch (Exception e) {
+                    	e.printStackTrace();
+                        log.debug("Connection: Error delivering raw text" + "\n"
+                                + this.toString(), e);
+                        errorDelivering = true;
+                    }
+                    // Close the connection if delivering text fails
+                    if (errorDelivering && asynchronous) {
+                        close();
+                    }
+                }
+            }
+        }.setSession(session);
         session.setAttribute(CONNECTION, connection);
         session.setAttribute(STANZA_HANDLER, new DeviceStanzaHandler(serverName,
                 connection));
