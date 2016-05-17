@@ -1,0 +1,1 @@
+device monitor realtime data deliver to app android by yaogang.hao blackcrystal
